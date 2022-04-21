@@ -1,0 +1,58 @@
+:: a_pet
+
+You pet <<=$name>>.
+
+<img src="img/cuddle.gif">
+
+<<set $happy to $happy + 20>>
+
+<<timed 2s>>
+[[continue->main]]
+<</timed>>
+
+
+:: a_tickle
+
+You tickle <<=$name>>.
+
+<img src="img/cuddle.gif">
+
+<<set $happy to $happy + 10>>
+<<set $energy to $energy + 10>>
+
+<<timed 2s>>
+[[continue->main]]
+<</timed>>
+
+:: a_punch
+
+You punch <<=$name>>.
+
+<img src="img/beat.gif">
+
+<<set $happy to $happy - 20>>
+
+<<timed 2s>>
+[[continue->main]]
+<</timed>>
+
+
+:: a_suicide
+
+<<=$name>> has had it with you.
+
+<img src="img/suicide.gif">
+
+<<timed 5s>>
+[[oh no->a_rip]]
+<</timed>>
+
+:: a_rip
+
+<<=$name>> is dead.
+
+<img src="img/death2.gif">
+
+<<timed 3s>>
+[[well...->Start]]
+<</timed>>
