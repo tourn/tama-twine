@@ -24,6 +24,13 @@
 <<img "overeatenexplode">>
 <<include delayed_ohno>>
 
+:: e_sleep_floor
+
+$name falls asleep on the floor.
+<<img "sleep">>
+<<smod 'energy' 50>>
+<<smod 'happy' -5>>
+<<include delayed_continue>>
 
 :: e_rip
 

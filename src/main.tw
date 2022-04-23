@@ -6,6 +6,9 @@
     <<if $hunger lte 0>>
         <<goto e_starve>>
     <</if>>
+    <<if $energy lte 0>>
+        <<goto e_sleep_floor>>
+    <</if>>
     <<if $hunger gte 100>>
         <<goto e_overeaten>>
     <</if>>
@@ -14,12 +17,13 @@
 
 <<=$name>> is here.
 
-<<img "idle1">>
+<<renderbody_statbased>>
 
-[[feed him->a_feed]]
-[[pet him->a_pet]]
-[[tickle him->a_tickle]]
-[[punch him->a_punch]]
+[[feed->a_feed]]
+[[pet->a_pet]]
+[[tickle->a_tickle]]
+[[send to bed->a_sleep_bed]]
+[[punch->a_punch]]
 [[pass time->main]]
 
 

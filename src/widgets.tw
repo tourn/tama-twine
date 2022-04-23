@@ -10,3 +10,21 @@ Energy: <<= $energy>>
 <<widget "smod">>
 <<run variables()[_args[0]] = Math.max(0, Math.min(100, variables()[_args[0]] + _args[1]))>>
 <</widget>>
+
+<<widget "renderbody_statbased">>
+<<nobr>>
+   <<if $hunger gte 70>>
+      <<img "idle4_barf">>
+   <<elseif $happy lte 30>>
+      <<img "sad1">>
+   <<elseif $hunger lte 30>>
+      <<img "hungry1">>
+   <<elseif $energy lte 30>>
+      <<img "sleepy1">>
+   <<elseif $happy gte 70>>
+      <<img "happy1">>
+   <<else>>
+      <<img "idle1">>
+   <</if>>
+<</nobr>>
+<</widget>>

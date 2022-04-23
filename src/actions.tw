@@ -37,3 +37,11 @@ You feed <<=$name>>.
 <<img "feed">>
 <<smod "hunger" 30>>
 <<include delayed_continue>>
+
+:: a_sleep_bed
+
+You put $name to bed.
+
+<<img "sleep">>
+<<smod "energy" 999>>
+<<include delayed_continue>>

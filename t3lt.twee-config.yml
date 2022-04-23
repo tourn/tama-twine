@@ -6,3 +6,5 @@ sugarcube-2:
       name: stats
     smod:
       name: smod
+    renderbody_statbased:
+      name: renderbody_statbased
