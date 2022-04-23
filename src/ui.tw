@@ -1,0 +1,19 @@
+:: StoryCaption
+
+<<if $started>>
+   <<if $happy lte 30>>
+      <<img "happy1">>
+   <<elseif $hunger lte 30>>
+      <<img "hungry1">>
+   <<elseif $energy lte 30>>
+      <<img "tired">>
+   <<elseif $hunger gte 80>>
+      <<img "idle4_barf">>
+   <<else>>
+      <<img "idle1">>
+   <</if>>
+
+   <<=$name>><<=$title>>
+
+   <<stats>>
+<</if>>

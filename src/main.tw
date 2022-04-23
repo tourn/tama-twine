@@ -1,66 +1,30 @@
-:: StoryData
-{
-    "ifid": "CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3",
-    "format": "SugarCube",
-	"format-version": "2.30.0",
-	"start": "Start"
-}
-
-:: StoryTitle
-My Little Hans
-
-:: Start
-<<set $name to "Friend">>
-You are feeling a little lonely
-
-[[look for a friend]]
-
-
-:: look for a friend
-<<set $decay to 5>>
-<<set $happy to 50>>
-<<set $hunger to 50>>
-<<set $energy to 50>>
-
-You find this little guy:
-
-<img src="img/idle1.gif">
-
-<<set $name to either("Hans", "Peter", "Franz", "Bob")>>
-<<set $title to either(", the Eater of Worlds", " the mighty", "", " Bugsnacker", " Milkdrinker", " Toastlover", ", the very curious")>>
-
-His name is <<=$name>><<=$title>>.
-
-[[pet him->a_pet]]
-[[tickle him->a_tickle]]
-[[punch him->a_punch]]
-[[leave him be->Start]]
-
 :: main
-
+<<nobr>>
+    <<if $happy lte 0>>
+        <<goto e_suicide>>
+    <</if>>
+    <<if $hunger lte 0>>
+        <<goto e_starve>>
+    <</if>>
+    <<if $hunger gte 100>>
+        <<goto e_overeaten>>
+    <</if>>
+<</nobr>>
 <<include decay>>
-<<if $happy lt 0>>
-    <<goto a_suicide>>
-<</if>>
 
 <<=$name>> is here.
 
-Happy: <<= $happy>>
-Hunger: <<= $hunger>>
-Energy: <<= $energy>>
+<<img "idle1">>
 
-
-<img src="img/idle1.gif">
-
+[[feed him->a_feed]]
 [[pet him->a_pet]]
 [[tickle him->a_tickle]]
 [[punch him->a_punch]]
 [[pass time->main]]
 
 
-:: decay
+:: decay[nobr]
 <<set $happy to $happy - $decay>>
 <<set $hunger to $hunger - $decay>>
 <<set $energy to $energy - $decay>>
-
 Time passes...

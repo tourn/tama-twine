@@ -1,0 +1,39 @@
+:: delayed_ohno
+
+<<timed 5s>>
+[[oh no->e_rip]]
+<</timed>>
+
+
+:: e_suicide
+
+<<=$name>> has had it with you.
+<<img "suicide">>
+<<include delayed_ohno>>
+
+
+:: e_starve
+
+<<=$name>> starves to death.
+<<img "starved1">>
+<<include delayed_ohno>>
+
+:: e_overeaten
+
+<<=$name>> has had a little bit too many tasty snacks.
+<<img "overeatenexplode">>
+<<include delayed_ohno>>
+
+
+:: e_rip
+
+<<=$name>> is dead.
+
+<<img "death2">>
+
+<<timed 3s>>
+[[well...->dorestart]]
+<</timed>>
+
+:: dorestart
+<<run Engine.restart()>>

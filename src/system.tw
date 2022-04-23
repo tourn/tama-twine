@@ -1,0 +1,17 @@
+:: StoryData
+{
+    "ifid": "CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3",
+    "format": "SugarCube",
+	"format-version": "2.36.1",
+	"start": "Start"
+}
+
+:: StoryTitle
+My Little Hans
+
+:: StoryInit
+<<set $name to "Friend">>
+<<set $decay to 5>>
+<<set $happy to 50>>
+<<set $hunger to 50>>
+<<set $energy to 50>>
