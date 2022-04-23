@@ -1,0 +1,50 @@
+:: m_feed
+
+What do you want to feed $name?
+
+<<link [[Steak->a_feed_color]]>>
+<<set $food to {
+    name: "Steak",
+    r: 255,
+    g: 0,
+    b: 0
+}>>
+<</link>>
+<<link [[Salad->a_feed_color]]>>
+<<set $food to {
+    name: "Salad",
+    r: 0,
+    g: 255,
+    b: 0
+}>>
+<</link>>
+<<link [[Blueberry->a_feed_color]]>>
+<<set $food to {
+    name: "Blueberry",
+    r: 0,
+    g: 0,
+    b: 255
+}>>
+<</link>>
+[[Bread->a_feed]]
+<<back "Never mind.">>
+
+
+:: a_feed_color
+
+You feed $name a <<=$food.name>>
+
+<<c "TODO mix fur color">>
+<<set $color to $food>>
+<<img "feed">>
+<<smod "hunger" 30>>
+<<include delayed_continue>>
+
+
+:: a_feed
+
+You feed <<=$name>>.
+
+<<img "feed">>
+<<smod "hunger" 30>>
+<<include delayed_continue>>

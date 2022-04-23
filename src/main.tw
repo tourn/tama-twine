@@ -19,7 +19,7 @@
 
 <<renderbody_statbased>>
 
-[[feed->a_feed]]
+[[feed->m_feed]]
 [[pet->a_pet]]
 [[tickle->a_tickle]]
 [[send to bed->a_sleep_bed]]

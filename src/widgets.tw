@@ -28,3 +28,6 @@ Energy: <<= $energy>>
    <</if>>
 <</nobr>>
 <</widget>>
+
+<<widget "c">>
+<</widget>>

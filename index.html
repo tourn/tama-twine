@@ -98,48 +98,81 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3// --><tw-storydata name="My Little Hans" startnode="16" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3" zoom="1" format="SugarCube" format-version="2.36.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="delayed_continue" tags="" position="100,100" size="100,100">&lt;&lt;timed 2s&gt;&gt;
+	<!-- UUID://CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3// --><tw-storydata name="My Little Hans" startnode="18" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3" zoom="1" format="SugarCube" format-version="2.36.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="m_feed" tags="" position="100,100" size="100,100">What do you want to feed $name?
+
+&lt;&lt;link [[Steak-&gt;a_feed_color]]&gt;&gt;
+&lt;&lt;set $food to {
+    name: &quot;Steak&quot;,
+    r: 255,
+    g: 0,
+    b: 0
+}&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+&lt;&lt;link [[Salad-&gt;a_feed_color]]&gt;&gt;
+&lt;&lt;set $food to {
+    name: &quot;Salad&quot;,
+    r: 0,
+    g: 255,
+    b: 0
+}&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+&lt;&lt;link [[Blueberry-&gt;a_feed_color]]&gt;&gt;
+&lt;&lt;set $food to {
+    name: &quot;Blueberry&quot;,
+    r: 0,
+    g: 0,
+    b: 255
+}&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+[[Bread-&gt;a_feed]]
+&lt;&lt;back &quot;Never mind.&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="a_feed_color" tags="" position="225,100" size="100,100">You feed $name a &lt;&lt;=$food.name&gt;&gt;
+
+&lt;&lt;c &quot;TODO mix fur color&quot;&gt;&gt;
+&lt;&lt;set $color to $food&gt;&gt;
+&lt;&lt;img &quot;feed&quot;&gt;&gt;
+&lt;&lt;smod &quot;hunger&quot; 30&gt;&gt;
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="a_feed" tags="" position="350,100" size="100,100">You feed &lt;&lt;=$name&gt;&gt;.
+
+&lt;&lt;img &quot;feed&quot;&gt;&gt;
+&lt;&lt;smod &quot;hunger&quot; 30&gt;&gt;
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="delayed_continue" tags="" position="475,100" size="100,100">&lt;&lt;timed 2s&gt;&gt;
 [[continue-&gt;main]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="a_pet" tags="" position="225,100" size="100,100">You pet &lt;&lt;=$name&gt;&gt;.
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="a_pet" tags="" position="600,100" size="100,100">You pet &lt;&lt;=$name&gt;&gt;.
 
 &lt;&lt;img &quot;cuddle&quot;&gt;&gt;
 &lt;&lt;smod &quot;happy&quot; 20&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="a_tickle" tags="" position="350,100" size="100,100">You tickle &lt;&lt;=$name&gt;&gt;.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="a_tickle" tags="" position="725,100" size="100,100">You tickle &lt;&lt;=$name&gt;&gt;.
 
 &lt;&lt;img &quot;cuddle&quot;&gt;&gt;
 &lt;&lt;smod &quot;happy&quot; 10&gt;&gt;
 &lt;&lt;smod &quot;energy&quot; 10&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="a_punch" tags="" position="475,100" size="100,100">You punch &lt;&lt;=$name&gt;&gt;.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="a_punch" tags="" position="850,100" size="100,100">You punch &lt;&lt;=$name&gt;&gt;.
 
 &lt;&lt;img &quot;beat&quot;&gt;&gt;
 &lt;&lt;smod &quot;happy&quot; -20&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="a_feed" tags="" position="600,100" size="100,100">You feed &lt;&lt;=$name&gt;&gt;.
-
-&lt;&lt;img &quot;feed&quot;&gt;&gt;
-&lt;&lt;smod &quot;hunger&quot; 30&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="a_sleep_bed" tags="" position="725,100" size="100,100">You put $name to bed.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="a_sleep_bed" tags="" position="975,100" size="100,100">You put $name to bed.
 
 &lt;&lt;img &quot;sleep&quot;&gt;&gt;
 &lt;&lt;smod &quot;energy&quot; 999&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="delayed_ohno" tags="" position="850,100" size="100,100">&lt;&lt;timed 5s&gt;&gt;
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="delayed_ohno" tags="" position="1100,100" size="100,100">&lt;&lt;timed 5s&gt;&gt;
 [[oh no-&gt;e_rip]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="e_suicide" tags="" position="975,100" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="e_suicide" tags="" position="1225,100" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
 &lt;&lt;img &quot;suicide&quot;&gt;&gt;
-&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="e_starve" tags="" position="1100,100" size="100,100">&lt;&lt;=$name&gt;&gt; starves to death.
+&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="e_starve" tags="" position="100,225" size="100,100">&lt;&lt;=$name&gt;&gt; starves to death.
 &lt;&lt;img &quot;starved1&quot;&gt;&gt;
-&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="e_overeaten" tags="" position="1225,100" size="100,100">&lt;&lt;=$name&gt;&gt; has had a little bit too many tasty snacks.
+&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="e_overeaten" tags="" position="225,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had a little bit too many tasty snacks.
 &lt;&lt;img &quot;overeatenexplode&quot;&gt;&gt;
-&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="e_sleep_floor" tags="" position="100,225" size="100,100">$name falls asleep on the floor.
+&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="e_sleep_floor" tags="" position="350,225" size="100,100">$name falls asleep on the floor.
 &lt;&lt;img &quot;sleep&quot;&gt;&gt;
 &lt;&lt;smod &#39;energy&#39; 50&gt;&gt;
 &lt;&lt;smod &#39;happy&#39; -5&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="e_rip" tags="" position="225,225" size="100,100">&lt;&lt;=$name&gt;&gt; is dead.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="e_rip" tags="" position="475,225" size="100,100">&lt;&lt;=$name&gt;&gt; is dead.
 
 &lt;&lt;img &quot;death2&quot;&gt;&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
 [[well...-&gt;dorestart]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="dorestart" tags="" position="350,225" size="100,100">&lt;&lt;run Engine.restart()&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="main" tags="" position="475,225" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="dorestart" tags="" position="600,225" size="100,100">&lt;&lt;run Engine.restart()&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="main" tags="" position="725,225" size="100,100">&lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $happy lte 0&gt;&gt;
         &lt;&lt;goto e_suicide&gt;&gt;
     &lt;&lt;/if&gt;&gt;
@@ -159,18 +192,18 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 
 &lt;&lt;renderbody_statbased&gt;&gt;
 
-[[feed-&gt;a_feed]]
+[[feed-&gt;m_feed]]
 [[pet-&gt;a_pet]]
 [[tickle-&gt;a_tickle]]
 [[send to bed-&gt;a_sleep_bed]]
 [[punch-&gt;a_punch]]
-[[pass time-&gt;main]]</tw-passagedata><tw-passagedata pid="15" name="decay" tags="nobr" position="600,225" size="100,100">&lt;&lt;set $happy to $happy - $decay&gt;&gt;
+[[pass time-&gt;main]]</tw-passagedata><tw-passagedata pid="17" name="decay" tags="nobr" position="850,225" size="100,100">&lt;&lt;set $happy to $happy - $decay&gt;&gt;
 &lt;&lt;set $hunger to $hunger - $decay&gt;&gt;
 &lt;&lt;set $energy to $energy - $decay&gt;&gt;
-Time passes...</tw-passagedata><tw-passagedata pid="16" name="Start" tags="" position="725,225" size="100,100">&lt;&lt;set $started to false&gt;&gt;
+Time passes...</tw-passagedata><tw-passagedata pid="18" name="Start" tags="" position="975,225" size="100,100">&lt;&lt;set $started to false&gt;&gt;
 You are feeling a little lonely
 
-[[look for a friend]]</tw-passagedata><tw-passagedata pid="17" name="look for a friend" tags="" position="850,225" size="100,100">&lt;&lt;set $started to true&gt;&gt;
+[[look for a friend]]</tw-passagedata><tw-passagedata pid="19" name="look for a friend" tags="" position="1100,225" size="100,100">&lt;&lt;set $started to true&gt;&gt;
 
 You find this little guy:
 
@@ -184,15 +217,21 @@ His name is &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;.
 [[pet him-&gt;a_pet]]
 [[tickle him-&gt;a_tickle]]
 [[punch him-&gt;a_punch]]
-[[leave him be-&gt;Start]]</tw-passagedata><tw-passagedata pid="18" name="StoryInit" tags="" position="975,225" size="100,100">&lt;&lt;set $name to &quot;Friend&quot;&gt;&gt;
+[[leave him be-&gt;Start]]</tw-passagedata><tw-passagedata pid="20" name="StoryInit" tags="" position="1225,225" size="100,100">&lt;&lt;set $name to &quot;Friend&quot;&gt;&gt;
 &lt;&lt;set $decay to 5&gt;&gt;
 &lt;&lt;set $happy to 50&gt;&gt;
 &lt;&lt;set $hunger to 50&gt;&gt;
-&lt;&lt;set $energy to 50&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="StoryCaption" tags="" position="1100,225" size="100,100">&lt;&lt;if $started&gt;&gt;
+&lt;&lt;set $energy to 50&gt;&gt;
+&lt;&lt;set $color to {
+    r: 255,
+    g: 255,
+    b: 255
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="StoryCaption" tags="" position="100,350" size="100,100">&lt;&lt;if $started&gt;&gt;
    &lt;&lt;renderbody_statbased&gt;&gt;
    &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;
+   Fur is &lt;span @style=&quot;&#39;color: rgb(&#39; + $color.r + &#39;,&#39; + $color.g + &#39;,&#39; + $color.b + &#39;);&#39;&quot;&gt;COLOR&lt;/span&gt;
    &lt;&lt;stats&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="Widgets" tags="widget" position="1225,225" size="100,100">&lt;&lt;widget &quot;img&quot;&gt;&gt; &lt;img @src=&quot;&#39;img/&#39;+ _args[0] + &#39;.gif&#39;&quot;/&gt; &lt;&lt;/widget&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Widgets" tags="widget" position="225,350" size="100,100">&lt;&lt;widget &quot;img&quot;&gt;&gt; &lt;img @src=&quot;&#39;img/&#39;+ _args[0] + &#39;.gif&#39;&quot;/&gt; &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;stats&quot;&gt;&gt;
 Happy: &lt;&lt;= $happy&gt;&gt;
@@ -220,6 +259,9 @@ Energy: &lt;&lt;= $energy&gt;&gt;
       &lt;&lt;img &quot;idle1&quot;&gt;&gt;
    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/widget&gt;&gt;
+
+&lt;&lt;widget &quot;c&quot;&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */

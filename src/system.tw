@@ -15,3 +15,8 @@ My Little Hans
 <<set $happy to 50>>
 <<set $hunger to 50>>
 <<set $energy to 50>>
+<<set $color to {
+    r: 255,
+    g: 255,
+    b: 255
+}>>

@@ -8,3 +8,5 @@ sugarcube-2:
       name: smod
     renderbody_statbased:
       name: renderbody_statbased
+    c:
+      name: c
