@@ -14,7 +14,7 @@ Energy: <<= $energy>>
 <<widget "renderbody_statbased">>
 <<nobr>>
    <<if $hunger gte 70>>
-      <<img "idle4_barf">>
+      <<render "sick" `{1: setup.format_rgb($food)}`>>
    <<elseif $happy lte 30>>
       <<img "sad1">>
    <<elseif $hunger lte 30>>
