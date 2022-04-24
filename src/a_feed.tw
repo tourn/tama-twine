@@ -5,25 +5,49 @@ What do you want to feed $name?
 <<link [[Steak->a_feed_color]]>>
 <<set $food to {
     name: "Steak",
-    r: 255,
-    g: 0,
-    b: 0
+    r: 251,
+    g: 73,
+    b: 52
 }>>
 <</link>>
 <<link [[Salad->a_feed_color]]>>
 <<set $food to {
     name: "Salad",
-    r: 0,
-    g: 255,
-    b: 0
+    r: 184,
+    g: 187,
+    b: 38
 }>>
 <</link>>
 <<link [[Blueberry->a_feed_color]]>>
 <<set $food to {
     name: "Blueberry",
+    r: 69,
+    g: 133,
+    b: 136
+}>>
+<</link>>
+<<link [[Banana->a_feed_color]]>>
+<<set $food to {
+    name: "Blueberry",
+    r: 250,
+    g: 189,
+    b: 47
+}>>
+<</link>>
+<<link [[Chalk->a_feed_color]]>>
+<<set $food to {
+    name: "Chalk",
+    r: 255,
+    g: 255,
+    b: 255
+}>>
+<</link>>
+<<link [[Coal->a_feed_color]]>>
+<<set $food to {
+    name: "Coal",
     r: 0,
     g: 0,
-    b: 255
+    b: 0
 }>>
 <</link>>
 [[Bread->a_feed]]
@@ -34,9 +58,21 @@ What do you want to feed $name?
 
 You feed $name a <<=$food.name>>
 
-<<c "TODO mix fur color">>
-<<set $color to $food>>
-<<img "feed">>
+<<set _prev_color to clone($color)>>
+<<script>>
+const shift = 50;
+const target = variables().food;
+const color = variables().color;
+["r", "g", "b"].forEach(c => {
+    if(target[c] > color[c]){
+        color[c] = Math.min(color[c]+shift, target[c])
+    } else {
+        color[c] = Math.max(color[c]-shift, target[c])
+    }
+})
+variables().color = color;
+<</script>>
+<<render feed `{h: setup.format_rgb(_prev_color), 1: setup.format_rgb($food), 2: setup.format_rgb($color)}`>>
 <<smod "hunger" 30>>
 <<include delayed_continue>>
 

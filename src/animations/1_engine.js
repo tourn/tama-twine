@@ -14,8 +14,8 @@ function register(name, data) {
     animations[name] = {
         ...getDimensions(data),
         frames: data
-        .map(replaceCharacters)
         .flatMap(flattenAnimation)
+        .map(replaceCharacters)
     }
 }
 function replaceCharacters(frame){
@@ -54,6 +54,7 @@ function get(name) {
     const data = animations[name]
     if (!data) {
         console.warn(`tried to get animation ${name} which does not exist`)
+        return name != "?" && get("?");
     }
     return data;
 }

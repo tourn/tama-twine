@@ -20,3 +20,6 @@ My Little Hans
     g: 255,
     b: 255
 }>>
+<<script>>
+setup.format_rgb = ({r,g,b}) => `rgb(${r}, ${g}, ${b})`
+<</script>>

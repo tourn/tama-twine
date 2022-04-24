@@ -19,16 +19,13 @@
 
 <<renderbody_statbased>>
 
-[[feed->m_feed]]
-[[pet->a_pet]]
-[[tickle->a_tickle]]
-[[send to bed->a_sleep_bed]]
-[[punch->a_punch]]
-[[pass time->main]]
-
-<<render "happy" {"1":"#00ff00"}>>
-
-<<render "duck" {"1":"#fabd2f"}>>
+[[Feed->m_feed]]
+[[Pet->a_pet]]
+[[Tickle->a_tickle]]
+[[Send to bed->a_sleep_bed]]
+[[Punch->a_punch]]
+[[Go on an adventure->a_adventure]]
+[[Pass time->main]]
 
 :: decay[nobr]
 <<set $happy to $happy - $decay>>
