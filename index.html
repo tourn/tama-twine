@@ -98,7 +98,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3// --><tw-storydata name="My Little Hans" startnode="18" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3" zoom="1" format="SugarCube" format-version="2.36.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "0_rot.js" */
+	<!-- UUID://CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3// --><tw-storydata name="My Little Hans" startnode="19" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3" zoom="1" format="SugarCube" format-version="2.36.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "0_rot.js" */
 /*
 	This is rot.js, the ROguelike Toolkit in JavaScript.
 	Version 0.7~dev, generated on Tue Aug 30 12:08:59 CEST 2016.
@@ -5410,6 +5410,7 @@ ROT.Path.AStar.prototype._distance = function(x, y) {
 Array.prototype.flatMap = function (lambda) {
     return Array.prototype.concat.apply([], this.map(lambda));
 };
+let duration; // used in animation definition files, which sadly have no local scope
 
 const animations = {}
 const displayWidth = 20;
@@ -5419,10 +5420,18 @@ function register(name, data) {
     if (animations[name]) {
         console.warn(`overwriting animations.${name}`)
     }
-    // TODO  run flatten loops, replace \\
     animations[name] = {
         ...getDimensions(data),
-        frames: data.flatMap(flattenAnimation)
+        frames: data
+        .map(replaceCharacters)
+        .flatMap(flattenAnimation)
+    }
+}
+function replaceCharacters(frame){
+    // animation definitions can use the weird character ⑊ instead of an escaped \\ which throws the whole alignment off
+    return {
+        ...frame,
+        image: frame.image.map(line => line.replaceAll("⑊", "\\"))
     }
 }
 function getDimensions(definition) {
@@ -5470,7 +5479,7 @@ function determineFontSize() {
 function createDisplay(elementId, optionOverrides = {}) {
     var opts = {
         width: displayWidth, height: 5, fontSize: determineFontSize(),
-        fg: 'white', bg: 'transparent',
+        fg: 'white', bg: '#111',
         ...optionOverrides
     };
     console.log(opts);
@@ -5492,7 +5501,14 @@ function animate(elementId, animationName, colors = {}) {
     const definition = get(animationName);
     const display = createDisplay(elementId, {width: definition.width, height: definition.height});
     const defaultColors = {
-        r: "#ff0000",
+        r: "#cc241d",
+        R: "#fb4934",
+        g: "#98971a",
+        G: "#b8bb26",
+        b: "#458588",
+        B: "#83a598",
+        y: "#d79921",
+        Y: "#fabd2f",
         H: colors.h
     }
     let timeout;
@@ -5548,10 +5564,196 @@ function animate(elementId, animationName, colors = {}) {
 }
 setup.animations = {
     register,
-    animate
+    animate(...args) {
+        setTimeout(()=>animate(...args), 0)
+    }
 }
-/* twine-user-script #3: "happy.js" */
-const duration = 1000;
+/* twine-user-script #3: "duck.js" */
+duration = 200;
+setup.animations.register("duck", [
+	{
+    duration: duration * 5,
+    image: [
+			"(⑊_/)",
+			"(O_o)",
+			"(> <)___ ",
+			"        |~~~~~~~~~~~"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh",
+			"hhhhh    ",
+			"         bbbbbbbbbbb"
+    ]
+  },
+	{
+    duration: duration,
+    image: [
+			"(⑊_/)",
+			"(O_o)",
+			"(> <)___           =",
+			"        |~~~~~~~~~~~"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh",
+			"hhhhh              1",
+			"         bbbbbbbbbbb"
+    ]
+  },
+	{
+    duration: duration,
+    image: [
+			"(⑊_/)",
+			"(O_o)",
+			"(> <)___          =(",
+			"        |~~~~~~~~~~("
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh",
+			"hhhhh             11",
+			"         bbbbbbbbbb1"
+    ]
+  },
+	{
+    duration: duration,
+    image: [
+			"(⑊_/)",
+			"(O_o)              _",
+			"(> <)___         =(.",
+			"        |~~~~~~~~~(_"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh              1",
+			"hhhhh            111",
+			"         bbbbbbbbb11"
+    ]
+  },
+	{
+    duration: duration,
+    image: [
+			"(⑊_/)",
+			"(O_o)             _",
+			"(> <)___        =(.)",
+			"        |~~~~~~~~(__"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh             1",
+			"hhhhh           1111",
+			"         bbbbbbbb111"
+    ]
+  },
+	{
+    duration: duration,
+    image: [
+			"(⑊_/)",
+			"(O_o)            _",
+			"(> <)___       =(.)_",
+			"        |~~~~~~~(___"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh            1",
+			"hhhhh          11111",
+			"         bbbbbbb1111"
+    ]
+  },
+	{
+    duration: duration,
+    image: [
+			"(⑊_/)",
+			"(O_o)           _",
+			"(> <)___      =(.)__",
+			"        |~~~~~~(___/"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh           1",
+			"hhhhh         111111",
+			"         bbbbbb11111"
+    ]
+  },
+	{
+    duration: duration,
+    image: [
+			"(⑊_/)",
+			"(O_o)          _",
+			"(> <)___     =(.)__",
+			"        |~~~~~(___/~"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh          1",
+			"hhhhh        111111",
+			"         bbbbb11111b"
+    ]
+  },
+	{
+    duration: duration*5,
+    image: [
+			"(⑊_/)",
+			"(O_o)         _",
+			"(> <)___    =(.)__",
+			"        |~~~~(___/~~"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh         1",
+			"hhhhh       111111",
+			"         bbbb11111bb"
+    ]
+  },
+	{
+    duration: duration*3,
+    image: [
+			"(⑊_/)",
+			"(O_o)   QUAK  _",
+			"(> <)___    >(.)__",
+			"        |~~~~(___/~~"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh         1",
+			"hhhhh       111111",
+			"         bbbb11111bb"
+    ]
+  },
+	{
+    duration: duration*2,
+    image: [
+			"(⑊_/)",
+			"(O_o)         _",
+			"(> <)___    =(.)__",
+			"        |~~~~(___/~~"
+    ],
+    mask: [
+			"hhhhh",
+			"hHHHh         1",
+			"hhhhh       111111",
+			"         bbbb11111bb"
+    ]
+  },
+	{
+    duration: duration*5,
+    image: [
+			"(⑊_/)",
+			"( O_)         _",
+			"(> <)___    =(.)__",
+			"        |~~~~(___/~~"
+    ],
+    mask: [
+			"hhhhh",
+			"hhHHh         1",
+			"hhhhh       111111",
+			"         bbbb11111bb"
+    ]
+  },
+]);
+/* twine-user-script #4: "happy.js" */
+duration = 1000;
 setup.animations.register("happy", 
     [
         {
@@ -5637,25 +5839,31 @@ setup.animations.register("happy",
 
 &lt;&lt;img &quot;sleep&quot;&gt;&gt;
 &lt;&lt;smod &quot;energy&quot; 999&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="delayed_ohno" tags="" position="1100,100" size="100,100">&lt;&lt;timed 5s&gt;&gt;
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="AnimationWidgets" tags="widget nobr" position="1100,100" size="100,100">&lt;&lt;widget &quot;render&quot;&gt;&gt;
+   &lt;&lt;set _container to &quot;ani-container-&quot;+random(9999999)&gt;&gt;
+   &lt;&lt;set _aniname to _args[0]&gt;&gt;
+   &lt;&lt;set _colorOverrides to _args[1]&gt;&gt;
+   &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
+   &lt;&lt;run setup.animations.animate(_container, _aniname, {&quot;h&quot;: `rgb(${$color.r},${$color.g},${$color.b})`, ...(_colorOverrides &amp;&amp; JSON.parse(_colorOverrides) || {})})&gt;&gt;
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="delayed_ohno" tags="" position="1225,100" size="100,100">&lt;&lt;timed 5s&gt;&gt;
 [[oh no-&gt;e_rip]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="e_suicide" tags="" position="1225,100" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="e_suicide" tags="" position="100,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
 &lt;&lt;img &quot;suicide&quot;&gt;&gt;
-&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="e_starve" tags="" position="100,225" size="100,100">&lt;&lt;=$name&gt;&gt; starves to death.
+&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="e_starve" tags="" position="225,225" size="100,100">&lt;&lt;=$name&gt;&gt; starves to death.
 &lt;&lt;img &quot;starved1&quot;&gt;&gt;
-&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="e_overeaten" tags="" position="225,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had a little bit too many tasty snacks.
+&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="e_overeaten" tags="" position="350,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had a little bit too many tasty snacks.
 &lt;&lt;img &quot;overeatenexplode&quot;&gt;&gt;
-&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="e_sleep_floor" tags="" position="350,225" size="100,100">$name falls asleep on the floor.
+&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="e_sleep_floor" tags="" position="475,225" size="100,100">$name falls asleep on the floor.
 &lt;&lt;img &quot;sleep&quot;&gt;&gt;
 &lt;&lt;smod &#39;energy&#39; 50&gt;&gt;
 &lt;&lt;smod &#39;happy&#39; -5&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="e_rip" tags="" position="475,225" size="100,100">&lt;&lt;=$name&gt;&gt; is dead.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="e_rip" tags="" position="600,225" size="100,100">&lt;&lt;=$name&gt;&gt; is dead.
 
 &lt;&lt;img &quot;death2&quot;&gt;&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
 [[well...-&gt;dorestart]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="dorestart" tags="" position="600,225" size="100,100">&lt;&lt;run Engine.restart()&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="main" tags="" position="725,225" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="dorestart" tags="" position="725,225" size="100,100">&lt;&lt;run Engine.restart()&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="main" tags="" position="850,225" size="100,100">&lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $happy lte 0&gt;&gt;
         &lt;&lt;goto e_suicide&gt;&gt;
     &lt;&lt;/if&gt;&gt;
@@ -5682,13 +5890,15 @@ setup.animations.register("happy",
 [[punch-&gt;a_punch]]
 [[pass time-&gt;main]]
 
-&lt;&lt;render &quot;happy&quot; {&quot;1&quot;:&quot;#00ff00&quot;}&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="decay" tags="nobr" position="850,225" size="100,100">&lt;&lt;set $happy to $happy - $decay&gt;&gt;
+&lt;&lt;render &quot;happy&quot; {&quot;1&quot;:&quot;#00ff00&quot;}&gt;&gt;
+
+&lt;&lt;render &quot;duck&quot; {&quot;1&quot;:&quot;#fabd2f&quot;}&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="decay" tags="nobr" position="975,225" size="100,100">&lt;&lt;set $happy to $happy - $decay&gt;&gt;
 &lt;&lt;set $hunger to $hunger - $decay&gt;&gt;
 &lt;&lt;set $energy to $energy - $decay&gt;&gt;
-Time passes...</tw-passagedata><tw-passagedata pid="18" name="Start" tags="" position="975,225" size="100,100">&lt;&lt;set $started to false&gt;&gt;
+Time passes...</tw-passagedata><tw-passagedata pid="19" name="Start" tags="" position="1100,225" size="100,100">&lt;&lt;set $started to false&gt;&gt;
 You are feeling a little lonely
 
-[[look for a friend]]</tw-passagedata><tw-passagedata pid="19" name="look for a friend" tags="" position="1100,225" size="100,100">&lt;&lt;set $started to true&gt;&gt;
+[[look for a friend]]</tw-passagedata><tw-passagedata pid="20" name="look for a friend" tags="" position="1225,225" size="100,100">&lt;&lt;set $started to true&gt;&gt;
 
 You find this little guy:
 
@@ -5702,7 +5912,7 @@ His name is &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;.
 [[pet him-&gt;a_pet]]
 [[tickle him-&gt;a_tickle]]
 [[punch him-&gt;a_punch]]
-[[leave him be-&gt;Start]]</tw-passagedata><tw-passagedata pid="20" name="StoryInit" tags="" position="1225,225" size="100,100">&lt;&lt;set $name to &quot;Friend&quot;&gt;&gt;
+[[leave him be-&gt;Start]]</tw-passagedata><tw-passagedata pid="21" name="StoryInit" tags="" position="100,350" size="100,100">&lt;&lt;set $name to &quot;Friend&quot;&gt;&gt;
 &lt;&lt;set $decay to 5&gt;&gt;
 &lt;&lt;set $happy to 50&gt;&gt;
 &lt;&lt;set $hunger to 50&gt;&gt;
@@ -5711,12 +5921,12 @@ His name is &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;.
     r: 255,
     g: 255,
     b: 255
-}&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="StoryCaption" tags="" position="100,350" size="100,100">&lt;&lt;if $started&gt;&gt;
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="StoryCaption" tags="" position="225,350" size="100,100">&lt;&lt;if $started&gt;&gt;
    &lt;&lt;renderbody_statbased&gt;&gt;
    &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;
    Fur is &lt;span @style=&quot;&#39;color: rgb(&#39; + $color.r + &#39;,&#39; + $color.g + &#39;,&#39; + $color.b + &#39;);&#39;&quot;&gt;COLOR&lt;/span&gt;
    &lt;&lt;stats&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Widgets" tags="widget" position="225,350" size="100,100">&lt;&lt;widget &quot;img&quot;&gt;&gt; &lt;img @src=&quot;&#39;img/&#39;+ _args[0] + &#39;.gif&#39;&quot;/&gt; &lt;&lt;/widget&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="Widgets" tags="widget" position="350,350" size="100,100">&lt;&lt;widget &quot;img&quot;&gt;&gt; &lt;img @src=&quot;&#39;img/&#39;+ _args[0] + &#39;.gif&#39;&quot;/&gt; &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;stats&quot;&gt;&gt;
 Happy: &lt;&lt;= $happy&gt;&gt;
@@ -5744,14 +5954,6 @@ Energy: &lt;&lt;= $energy&gt;&gt;
       &lt;&lt;img &quot;idle1&quot;&gt;&gt;
    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;/widget&gt;&gt;
-
-&lt;&lt;widget &quot;render&quot;&gt;&gt;
-   &lt;&lt;set _container to &quot;ani-container-&quot;+random(9999999)&gt;&gt;
-   &lt;&lt;set _aniname to _args[0]&gt;&gt;
-   &lt;&lt;set _colorOverrides to _args[1]&gt;&gt;
-   &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
-   &lt;&lt;run setTimeout(()=&gt;setup.animations.animate(_container, _aniname, {&quot;h&quot;: `rgb(${$color.r},${$color.g},${$color.b})`, ...(_colorOverrides &amp;&amp; JSON.parse(_colorOverrides) || {})}), 0)&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;c&quot;&gt;&gt;

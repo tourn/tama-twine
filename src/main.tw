@@ -28,6 +28,8 @@
 
 <<render "happy" {"1":"#00ff00"}>>
 
+<<render "duck" {"1":"#fabd2f"}>>
+
 :: decay[nobr]
 <<set $happy to $happy - $decay>>
 <<set $hunger to $hunger - $decay>>

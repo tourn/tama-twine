@@ -1,6 +1,7 @@
 Array.prototype.flatMap = function (lambda) {
     return Array.prototype.concat.apply([], this.map(lambda));
 };
+let duration; // used in animation definition files, which sadly have no local scope
 
 const animations = {}
 const displayWidth = 20;
@@ -10,10 +11,18 @@ function register(name, data) {
     if (animations[name]) {
         console.warn(`overwriting animations.${name}`)
     }
-    // TODO  run flatten loops, replace \\
     animations[name] = {
         ...getDimensions(data),
-        frames: data.flatMap(flattenAnimation)
+        frames: data
+        .map(replaceCharacters)
+        .flatMap(flattenAnimation)
+    }
+}
+function replaceCharacters(frame){
+    // animation definitions can use the weird character ⑊ instead of an escaped \\ which throws the whole alignment off
+    return {
+        ...frame,
+        image: frame.image.map(line => line.replaceAll("⑊", "\\"))
     }
 }
 function getDimensions(definition) {
@@ -61,7 +70,7 @@ function determineFontSize() {
 function createDisplay(elementId, optionOverrides = {}) {
     var opts = {
         width: displayWidth, height: 5, fontSize: determineFontSize(),
-        fg: 'white', bg: 'transparent',
+        fg: 'white', bg: '#111',
         ...optionOverrides
     };
     console.log(opts);
@@ -83,7 +92,14 @@ function animate(elementId, animationName, colors = {}) {
     const definition = get(animationName);
     const display = createDisplay(elementId, {width: definition.width, height: definition.height});
     const defaultColors = {
-        r: "#ff0000",
+        r: "#cc241d",
+        R: "#fb4934",
+        g: "#98971a",
+        G: "#b8bb26",
+        b: "#458588",
+        B: "#83a598",
+        y: "#d79921",
+        Y: "#fabd2f",
         H: colors.h
     }
     let timeout;
@@ -139,5 +155,7 @@ function animate(elementId, animationName, colors = {}) {
 }
 setup.animations = {
     register,
-    animate
+    animate(...args) {
+        setTimeout(()=>animate(...args), 0)
+    }
 }

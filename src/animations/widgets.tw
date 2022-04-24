@@ -1,0 +1,8 @@
+:: AnimationWidgets[widget nobr]
+<<widget "render">>
+   <<set _container to "ani-container-"+random(9999999)>>
+   <<set _aniname to _args[0]>>
+   <<set _colorOverrides to _args[1]>>
+   <div @id="_container"></div>
+   <<run setup.animations.animate(_container, _aniname, {"h": `rgb(${$color.r},${$color.g},${$color.b})`, ...(_colorOverrides && JSON.parse(_colorOverrides) || {})})>>
+<</widget>>

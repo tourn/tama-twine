@@ -1,4 +1,4 @@
-const duration = 1000;
+duration = 1000;
 setup.animations.register("happy", 
     [
         {
