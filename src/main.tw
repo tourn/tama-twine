@@ -26,6 +26,7 @@
 [[punch->a_punch]]
 [[pass time->main]]
 
+<<render "happy" {"1":"#00ff00"}>>
 
 :: decay[nobr]
 <<set $happy to $happy - $decay>>
