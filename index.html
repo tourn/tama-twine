@@ -5498,6 +5498,10 @@ function animateContinuously(...args) {
         if (again) { animateContinuously(animationName); }
     });
 }
+function animateMany(elementId, animationNames){ // TODO need another signature to pass color overrides
+    animate(elementId, either(animationNames))
+    .then(()=>animateMany(elementId, animationNames))
+}
 function animate(elementId, animationName, colors = {}) {
     const definition = get(animationName);
     const display = createDisplay(elementId, {width: definition.width, height: definition.height});
@@ -5567,9 +5571,49 @@ setup.animations = {
     register,
     animate(...args) {
         setTimeout(()=>animate(...args), 0)
+    },
+    animateMany(...args) {
+        setTimeout(()=>animateMany(...args), 0)
     }
 }
-/* twine-user-script #3: "duck.js" */
+/* twine-user-script #3: "cuddle.js" */
+duration = 300;
+setup.animations.register("cuddle",
+    [
+        {
+            loop: 7,
+            frames: [
+                {
+                    duration: 300,
+                    image: [
+                        " (⑊_/)",
+                        " (^-^)",
+                        " (> <)"
+                    ],
+                    mask: [
+                        " hhhhh",
+                        " hHHHh",
+                        " hhhhh"
+                    ]
+                },
+                {
+                    duration: 300,
+                    image: [
+                        "     ",
+                        " (⑊_/)",
+                        "((^-^))",
+                    ],
+                    mask: [
+                        "     ",
+                        " hhhhh",
+                        "hhHHHhh",
+                    ],
+                },
+            ]
+        },
+    ]
+);
+/* twine-user-script #4: "duck.js" */
 duration = 200;
 setup.animations.register("duck", [
 	{
@@ -5753,7 +5797,7 @@ setup.animations.register("duck", [
     ]
   },
 ]);
-/* twine-user-script #4: "feed.js" */
+/* twine-user-script #5: "feed.js" */
 duration = 300;
 setup.animations.register("feed", [
     {
@@ -5928,7 +5972,7 @@ setup.animations.register("feed", [
         ]
     },
 ])
-/* twine-user-script #5: "happy.js" */
+/* twine-user-script #6: "happy.js" */
 duration = 1000;
 setup.animations.register("happy", 
     [
@@ -5960,8 +6004,737 @@ setup.animations.register("happy",
         },
     ]
 );
-/* twine-user-script #6: "overeatenexplode.js" */
-/* twine-user-script #7: "sick.js" */
+/* twine-user-script #7: "idle.js" */
+duration = 100;
+setup.animations.register("idle",
+[
+	{
+        duration: duration * 50,
+        image: [
+			"(⑊_/)",
+			"(O_o)",
+			"(> <)"
+        ],
+        mask: [
+			"hhhhh",
+			"hHHHh",
+			"hhhhh"
+        ]
+    },
+    {
+        duration: duration,
+        image: [
+			"(⑊_/)",
+			"(-_-)",
+			"(> <)"
+        ],
+        mask: [
+			"hhhhh",
+			"hHHHh",
+			"hhhhh"
+        ]
+    },
+]
+);
+/* twine-user-script #8: "idle2.js" */
+duration = 100;
+setup.animations.register("idle2",
+[
+	{
+        duration: duration * 50,
+        image: [
+			"(⑊_/)",
+			"(o_O)",
+			"(> <)"
+        ],
+        mask: [
+			"hhhhh",
+			"hHHHh",
+			"hhhhh"
+        ]
+    },
+    {
+        duration: duration,
+        image: [
+			"(⑊_/)",
+			"(-_-)",
+			"(> <)"
+        ],
+        mask: [
+			"hhhhh",
+			"hHHHh",
+			"hhhhh"
+        ]
+    },
+]
+);
+/* twine-user-script #9: "overeatenexplode.js" */
+duration = 100;
+setup.animations.register("overeatenexplode",
+    [
+        {
+            duration: duration * 10,
+            image: [
+                "(⑊__/)         _",
+                "(o__o)       _|_|_",
+                "(>  <)      |^^^^^|"
+            ],
+            mask: [
+                "hhhhhh          ",
+                "hHHHHh            ",
+                "hhhhhh       rrrrr "
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "(⑊__/)         _",
+                "( o__)       _|_|_",
+                "(>  <)      |^^^^^|"
+            ],
+            mask: [
+                "hhhhhh          ",
+                "hhHHHh            ",
+                "hhhhhh       rrrrr "
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "(⑊__/)         _",
+                "( -__)       _|_|_",
+                "(>  <)      |^^^^^|"
+            ],
+            mask: [
+                "hhhhhh      ",
+                "hhHHHh      ",
+                "hhhhhh       rrrrr "
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "(⑊__/)         _",
+                "( O__)       _|_|_",
+                "(>  <)      |^^^^^|"
+            ],
+            mask: [
+                "hhhhhh      ",
+                "hhHHHh      ",
+                "hhhhhh       rrrrr "
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "(⑊__/)         _",
+                "( ^__)       _|_|_",
+                "(>  <)      |^^^^^|"
+            ],
+            mask: [
+                "hhhhhh      ",
+                "hhHHHh      ",
+                "hhhhhh       rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "(⑊__/)         _",
+                "(  ^_)       _|_|_",
+                "( >  >      |^^^^^|"
+            ],
+            mask: [
+                "hhhhhh      ",
+                "hhHHHh      ",
+                "hhhhhh       rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "   /)          _",
+                "(   ^)       _|_|_",
+                "(  > )      |^^^^^|"
+            ],
+            mask: [
+                "hhhhhh      ",
+                "hhHHHh      ",
+                "hhhhhh       rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "    /)         _",
+                " (   ^)      _|_|_",
+                "O(  > )     |^^^^^|"
+            ],
+            mask: [
+                "hhhhhh      ",
+                "hhhhhHh     ",
+                "hhhhhhh      rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "     /)        _",
+                "  (   ^)     _|_|_",
+                " O(  > )    |^^^^^|"
+            ],
+            mask: [
+                "    hhh         ",
+                "  hhhhHh          ",
+                " hhhhhhhh    rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "      /)       _",
+                "   (   ^)    _|_|_",
+                "  O(  > )   |^^^^^|"
+            ],
+            mask: [
+                "      hh        ",
+                "   hhhhHh         ",
+                "  hhhhhhh    rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "       /)      _",
+                "    (   ^)   _|_|_",
+                "   O(  > )  |^^^^^|"
+            ],
+            mask: [
+                "       hh       ",
+                "    h   Hh        ",
+                "   hh  hhh   rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "        /)     _",
+                "     (   ^)  _|_|_",
+                "    O(  > ) |^^^^^|"
+            ],
+            mask: [
+                "        hh      ",
+                "     h   Hh       ",
+                "    hh  hhh  rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "         /)    _",
+                "      (   ^) _|_|_",
+                "     O(  > )|^^^^^|"
+            ],
+            mask: [
+                "         hh  ",
+                "      h   Hh ",
+                "     hhhhhhh rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "         /)    _",
+                "      (   ^)  |_|_",
+                "     O(   >)|^^^^^|"
+            ],
+            mask: [
+                "         hh  ",
+                "      h   Hh ",
+                "     hh   hh rrrrr "
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "         /)    _",
+                "      (   ^) _|_|_",
+                "     O(   >)|^^^^^|"
+            ],
+            mask: [
+                "         hh ",
+                "      h   Hh",
+                "     hh   hh rrrrr "
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "         /)    _",
+                "      (   ^) _|_|_",
+                "     O(    >|^^^^^|"
+            ],
+            mask: [
+                "         hh",
+                "      h   Hh",
+                "     hh    h rrrrr "
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "         /)   _",
+                "      (   ^)_|_|_",
+                "     O(   >/^^^^^|"
+            ],
+            mask: [
+                "         hh",
+                "      h   Hh",
+                "     hh   h rrrrr "
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "         /)  _",
+                "      (   ^)|_|_",
+                "     O(  >`^^^^^|"
+            ],
+            mask: [
+                "         hh   ",
+                "      h   Hh    ",
+                "     hh  h rrrrr "
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "         /) _",
+                "      (   ^|_|_",
+                "     O(  >`'^^^|"
+            ],
+            mask: [
+                "         hh  ",
+                "      h   H    ",
+                "     hh  hrrrrr "
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "         /)_",
+                "      (   ^)|_",
+                "     O(  >'`^^|"
+            ],
+            mask: [
+                "         hh ",
+                "      h   Hh  ",
+                "     hh  hrrrr "
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "         /)",
+                "      (   ^|_",
+                "     O(  >-'^|"
+            ],
+            mask: [
+                "         hh",
+                "      h   H",
+                "     hh  hrrr "
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "         /)",
+                "      (   ^)",
+                "     O(  >`'|"
+            ],
+            mask: [
+                "         hh",
+                "      h   Hh",
+                "     hh  hrr "
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "         /)",
+                "      (   ^),",
+                "     O(  >`⑊"
+            ],
+            mask: [
+                "         hh",
+                "      h   Hh",
+                "     hh  hr "
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "         /)",
+                "      (   ^)",
+                "     O(  >⑊)'"
+            ],
+            mask: [
+                "         hh",
+                "      h   Hh",
+                "     hh  h h"
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "         /)",
+                "      (   ^)",
+                "     O(  > )."
+            ],
+            mask: [
+                "         hh",
+                "      h   Hh",
+                "     hhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "        /)/)",
+                "      (  ^_)",
+                "     O(  > )."
+            ],
+            mask: [
+                "        hhhh",
+                "      hhhHHh",
+                "     hhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "       /)/)",
+                "     (  ^_)",
+                "    O(  > ) ."
+            ],
+            mask: [
+                "       hhhh",
+                "     hhhHHh",
+                "    hhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "      ()_/)",
+                "     ( ^__)",
+                "    O( >  > _"
+            ],
+            mask: [
+                "      hhhhh",
+                "     hhHHHh",
+                "    hhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "    (⑊___/)",
+                "    (^___^)",
+                "    (>   <) _"
+            ],
+            mask: [
+                "    hhhhhhh",
+                "    hHHHHHh",
+                "    hhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "    (⑊___/)",
+                "    (O___O)",
+                "    (>   <) _"
+            ],
+            mask: [
+                "    hhhhhhh",
+                "    hHHHHHh",
+                "    hhhhhhh"
+            ]
+        },
+        {
+            loop: 5,
+            frames: [
+                {
+                    duration: duration * 2,
+                    image: [
+                        "    (⑊___/)",
+                        "    (O___O)",
+                        "    (>   <)"
+                    ],
+                    mask: [
+                        "    hhhhhhh",
+                        "    hHHHHHh",
+                        "    hhhhhhh"
+                    ]
+                },
+                {
+                    duration: duration * 2,
+                    image: [
+                        "   (⑊_____/)",
+                        "   (O_____O)",
+                        "   (>     <)"
+                    ],
+                    mask: [
+                        "   hhhhhhhhh",
+                        "   hHHHHHHHh",
+                        "   hhhhhhhhh"
+                    ]
+                },
+            ]
+        },
+        {
+            loop: 5,
+            frames: [
+                {
+                    duration: duration * 2,
+                    image: [
+                        "    (⑊___/)",
+                        "    (>___<)",
+                        "    (>   <)"
+                    ],
+                    mask: [
+                        "    hhhhhhh",
+                        "    hHHHHHh",
+                        "    hhhhhhh"
+                    ]
+                },
+                {
+                    duration: duration * 2,
+                    image: [
+                        "   (⑊_____/)",
+                        "   (>_____<)",
+                        "   (>     <)"
+                    ],
+                    mask: [
+                        "   hhhhhhhhh",
+                        "   hHHHHHHHh",
+                        "   hhhhhhhhh"
+                    ]
+                },
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "   /|__ __|⑊",
+                "   (>__-__<)",
+                "   (>  -  <)"
+            ],
+            mask: [
+                "   hhhh hhhh",
+                "   hHHH%HHHh",
+                "   hhhh%hhhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "    /|___|⑊",
+                "   (X__-__X)",
+                "  (>       <)"
+            ],
+            mask: [
+                "    hhh%hhh",
+                "   hHHH%HHHh",
+                "  hh       hh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "   (X__ __X)",
+                "   (__   __)",
+                " (>         <)"
+            ],
+            mask: [
+                "   hHHh hHHh",
+                "   hh%  hhhh",
+                " hh         hh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "   (X_   _X)",
+                "  (__     __)",
+                "(>           <)"
+            ],
+            mask: [
+                "   hHH   HHh",
+                "  hh%     %hh",
+                "hh           hh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "   (X_   _X)",
+                "  (__     __)",
+                ">             <)"
+            ],
+            mask: [
+                "   hHH   HHh",
+                "  hh%     %hh",
+                "h             hh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "   (X-   -X)",
+                "            ",
+                ">(--       --) <)"
+            ],
+            mask: [
+                "   hHH   HHh",
+                "            ",
+                "hhh%       %hhhhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "   (X-   -X)",
+                "            ",
+                " (__       __)  <)"
+            ],
+            mask: [
+                "   hHH   %Hh",
+                "            ",
+                " hh%       %hhhhhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "  (X-     -X)",
+                "            ",
+                " (__       __)  <)"
+            ],
+            mask: [
+                "  hHH     %Hh",
+                "            ",
+                " hh%       %hh hhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "    _     _",
+                "  (X       X)",
+                " (__       __)  <)"
+            ],
+            mask: [
+                "    h     %",
+                "  hH       Hh",
+                " hh%       %hh  hh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "",
+                "  (X-     -X)",
+                " (__       __)  <)"
+            ],
+            mask: [
+                "",
+                "  hHh     %Hh",
+                " hh%       %hh  hh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "",
+                "  (X-     -X)",
+                "(__        __)   <)"
+            ],
+            mask: [
+                "",
+                "  hHh     %Hh",
+                "hh%        %hh   hh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "",
+                "    _     _",
+                "(_(X       X)_)   <)"
+            ],
+            mask: [
+                "",
+                "    h     %",
+                "h%hH       Hh%h   hh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "",
+                "",
+                "___X-     -X__)   <)"
+            ],
+            mask: [
+                "",
+                "",
+                "hh%Hh     %H%hh   hh"
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "",
+                "",
+                "___X_     _X__)   <)"
+            ],
+            mask: [
+                "",
+                "",
+                "hh%Hh     %H%hh   hh"
+            ]
+        },
+        {
+            duration: duration * 2,
+            image: [
+                "",
+                "",
+                "___X_     _o__)   <)"
+            ],
+            mask: [
+                "",
+                "",
+                "hh%Hh     %H%hh   hh"
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "",
+                "",
+                "___X_     _X__)   <)"
+            ],
+            mask: [
+                "",
+                "",
+                "hh%Hh     %H%hh   hh"
+            ]
+        },
+    ]
+);
+/* twine-user-script #10: "sick.js" */
 duration = 100;
 setup.animations.register("sick",
     [
@@ -6175,7 +6948,44 @@ setup.animations.register("sick",
         },
     ]
 );
-/* twine-user-script #8: "unknown.js" */
+/* twine-user-script #11: "tickle.js" */
+duration = 300;
+setup.animations.register("tickle",
+    [
+        {
+            loop: 7,
+            frames: [
+                {
+                    duration: 300,
+                    image: [
+                        "(⑊_/)",
+                        "(^-^)",
+                        "(> <)"
+                    ],
+                    mask: [
+                        "hhhhh",
+                        "hHHHh",
+                        "hhhhh"
+                    ]
+                },
+                {
+                    duration: 300,
+                    image: [
+                        "(⑊/)",
+                        "(^^)",
+                        "(><)"
+                    ],
+                    mask: [
+                        "hhhh",
+                        "hHHh",
+                        "hhhh"
+                    ]
+                },
+            ]
+        },
+    ]
+);
+/* twine-user-script #12: "unknown.js" */
 duration = 250;
 setup.animations.register("?", 
     [
@@ -6221,9 +7031,9 @@ setup.animations.register("?",
 &lt;&lt;render &quot;duck&quot; `{1:&quot;#fabd2f&quot;}`&gt;&gt;
 &lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="m_feed" tags="" position="225,100" size="100,100">What do you want to feed $name?
 
-&lt;&lt;link [[Steak-&gt;a_feed_color]]&gt;&gt;
+&lt;&lt;link [[Tomato-&gt;a_feed_color]]&gt;&gt;
 &lt;&lt;set $food to {
-    name: &quot;Steak&quot;,
+    name: &quot;Tomato&quot;,
     r: 251,
     g: 73,
     b: 52
@@ -6247,7 +7057,7 @@ setup.animations.register("?",
 &lt;&lt;/link&gt;&gt;
 &lt;&lt;link [[Banana-&gt;a_feed_color]]&gt;&gt;
 &lt;&lt;set $food to {
-    name: &quot;Blueberry&quot;,
+    name: &quot;Banana&quot;,
     r: 250,
     g: 189,
     b: 47
@@ -6294,13 +7104,13 @@ variables().color = color;
 &lt;&lt;smod &quot;hunger&quot; 30&gt;&gt;
 &lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="delayed_continue" tags="" position="600,100" size="100,100">&lt;&lt;timed 2s&gt;&gt;
 [[continue-&gt;main]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="a_pet" tags="" position="725,100" size="100,100">You pet &lt;&lt;=$name&gt;&gt;.
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="a_pet" tags="" position="725,100" size="100,100">You pet $name.
 
-&lt;&lt;img &quot;cuddle&quot;&gt;&gt;
+&lt;&lt;render &quot;cuddle&quot;&gt;&gt;
 &lt;&lt;smod &quot;happy&quot; 20&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="a_tickle" tags="" position="850,100" size="100,100">You tickle &lt;&lt;=$name&gt;&gt;.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="a_tickle" tags="" position="850,100" size="100,100">You tickle $name.
 
-&lt;&lt;img &quot;cuddle&quot;&gt;&gt;
+&lt;&lt;render &quot;tickle&quot;&gt;&gt;
 &lt;&lt;smod &quot;happy&quot; 10&gt;&gt;
 &lt;&lt;smod &quot;energy&quot; 10&gt;&gt;
 &lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="a_punch" tags="" position="975,100" size="100,100">You punch &lt;&lt;=$name&gt;&gt;.
@@ -6314,9 +7124,17 @@ variables().color = color;
 &lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="AnimationWidgets" tags="widget nobr" position="1225,100" size="100,100">&lt;&lt;widget &quot;render&quot;&gt;&gt;
    &lt;&lt;set _container to &quot;ani-container-&quot;+random(9999999)&gt;&gt;
    &lt;&lt;set _aniname to _args[0]&gt;&gt;
-   &lt;&lt;set _colorOverrides to _args[1]&gt;&gt;
+   &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
    &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
-   &lt;&lt;run setup.animations.animate(_container, _aniname, {&quot;h&quot;: `rgb(${$color.r},${$color.g},${$color.b})`, ...(_colorOverrides || {})})&gt;&gt;
+   &lt;&lt;run setup.animations.animate(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})})&gt;&gt;
+&lt;&lt;/widget&gt;&gt;
+
+&lt;&lt;widget &quot;renderMany&quot;&gt;&gt;
+   &lt;&lt;set _container to &quot;ani-container-&quot;+random(9999999)&gt;&gt;
+   &lt;&lt;set _aniname to _args[0]&gt;&gt;
+   &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
+   &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
+   &lt;&lt;run setup.animations.animateMany(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})})&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="delayed_ohno" tags="" position="100,225" size="100,100">&lt;&lt;timed 5s&gt;&gt;
 [[oh no-&gt;e_rip]]
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="e_suicide" tags="" position="225,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
@@ -6324,7 +7142,7 @@ variables().color = color;
 &lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="e_starve" tags="" position="350,225" size="100,100">&lt;&lt;=$name&gt;&gt; starves to death.
 &lt;&lt;img &quot;starved1&quot;&gt;&gt;
 &lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="e_overeaten" tags="" position="475,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had a little bit too many tasty snacks.
-&lt;&lt;img &quot;overeatenexplode&quot;&gt;&gt;
+&lt;&lt;render &quot;overeatenexplode&quot;&gt;&gt;
 &lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="e_sleep_floor" tags="" position="600,225" size="100,100">$name falls asleep on the floor.
 &lt;&lt;img &quot;sleep&quot;&gt;&gt;
 &lt;&lt;smod &#39;energy&#39; 50&gt;&gt;
@@ -6423,9 +7241,9 @@ Energy: &lt;&lt;= $energy&gt;&gt;
    &lt;&lt;elseif $energy lte 30&gt;&gt;
       &lt;&lt;img &quot;sleepy1&quot;&gt;&gt;
    &lt;&lt;elseif $happy gte 70&gt;&gt;
-      &lt;&lt;img &quot;happy1&quot;&gt;&gt;
+      &lt;&lt;render &quot;happy&quot;&gt;&gt;
    &lt;&lt;else&gt;&gt;
-      &lt;&lt;img &quot;idle1&quot;&gt;&gt;
+      &lt;&lt;renderMany `[&quot;idle&quot;, &quot;idle2&quot;]`&gt;&gt;
    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
