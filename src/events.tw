@@ -21,7 +21,7 @@
 :: e_overeaten
 
 <<=$name>> has had a little bit too many tasty snacks.
-<<img "overeatenexplode">>
+<<render "overeatenexplode">>
 <<include delayed_ohno>>
 
 :: e_sleep_floor
