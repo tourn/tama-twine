@@ -6,18 +6,18 @@
 
 :: a_pet
 
-You pet <<=$name>>.
+You pet $name.
 
-<<img "cuddle">>
+<<render "cuddle">>
 <<smod "happy" 20>>
 <<include delayed_continue>>
 
 
 :: a_tickle
 
-You tickle <<=$name>>.
+You tickle $name.
 
-<<img "cuddle">>
+<<render "tickle">>
 <<smod "happy" 10>>
 <<smod "energy" 10>>
 <<include delayed_continue>>
