@@ -22,24 +22,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
+        
       - name: get tweego
-        uses: schmiddim/action-wget-unzip@v2
-        with:
-          url: https://github.com/tmedwards/tweego/releases/download/v2.1.1/tweego-2.1.1-linux-x64.zip
-          destination: tweego
+        run: wget https://github.com/tmedwards/tweego/releases/download/v2.1.1/tweego-2.1.1-linux-x64.zip && unzip tweego-2.1.1-linux-x64.zip tweego -d tweego          
         
-      - name: get up-to-date sugarcube
-        uses: schmiddim/action-wget-unzip@v2
-        with:
-          url: https://github.com/tmedwards/sugarcube-2/releases/download/v2.36.1/sugarcube-2.36.1-for-twine-2.1-local.zip
-          destination: tweego/storyformats/sugarcube-2
-          
+      - name: get sugarcube
+        run: wget https://github.com/tmedwards/sugarcube-2/releases/download/v2.36.1/sugarcube-2.36.1-for-twine-2.1-local.zip && unzip sugarcube-2.36.1-for-twine-2.1-local.zip -d tweego/storyformats
+        
       - name: build
-        run: sudo chmod +x tweego/tweego && ls -l tweego && ls -l tweego/storyformats && tweego/tweego -o index.html src 
-        
-      - name: prepare
-        run: mkdir public && mv index.html img public
+        run: sudo chmod +x tweego/tweego && tweego/tweego -o public/index.html src 
         
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
