@@ -28,9 +28,6 @@ jobs:
         with:
           url: https://github.com/tmedwards/tweego/releases/download/v2.1.1/tweego-2.1.1-linux-x64.zip
           destination: tweego
-          
-      - name: remove storyformats
-        run: ls -l; ls -l tweego; rm -r tweego/storyformats/*
         
       - name: get up-to-date sugarcube
         uses: schmiddim/action-wget-unzip@v2
