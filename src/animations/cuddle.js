@@ -12,9 +12,9 @@ setup.animations.register("cuddle",
                         " (> <)"
                     ],
                     mask: [
-                        "hhhhh",
-                        "hHHHh",
-                        "hhhhh"
+                        " hhhhh",
+                        " hHHHh",
+                        " hhhhh"
                     ]
                 },
                 {

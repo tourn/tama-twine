@@ -2,9 +2,9 @@
 
 What do you want to feed $name?
 
-<<link [[Steak->a_feed_color]]>>
+<<link [[Tomato->a_feed_color]]>>
 <<set $food to {
-    name: "Steak",
+    name: "Tomato",
     r: 251,
     g: 73,
     b: 52
@@ -28,7 +28,7 @@ What do you want to feed $name?
 <</link>>
 <<link [[Banana->a_feed_color]]>>
 <<set $food to {
-    name: "Blueberry",
+    name: "Banana",
     r: 250,
     g: 189,
     b: 47
