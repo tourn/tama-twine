@@ -6,7 +6,7 @@ name: Publish
 on:
   # Triggers the workflow on push or pull request events but only for the source branch
   push:
-    branches: [ source, main ]
+    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,9 +30,9 @@ jobs:
           destination: tweego
           
       - name: remove storyformats
-        run: rm -r tweego/storyformats/*
+        run: ls -l; ls -l tweego; rm -r tweego/storyformats/*
         
-      - name: get sugarcube
+      - name: get up-to-date sugarcube
         uses: schmiddim/action-wget-unzip@v2
         with:
           url: https://github.com/tmedwards/sugarcube-2/releases/download/v2.36.1/sugarcube-2.36.1-for-twine-2.1-local.zip
