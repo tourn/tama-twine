@@ -39,7 +39,7 @@ jobs:
           destination: tweego/storyformats
           
       - name: build
-        run: chmod +x tweego/tweego && tweego/tweego -o index.html src
+        run: sudo chmod +x tweego/tweego && tweego/tweego -o index.html src
         
       - name: prepare
         run: mkdir public && mv index.html img public
