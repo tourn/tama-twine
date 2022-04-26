@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Publish
 
 # Controls when the workflow will run
 on:
@@ -39,7 +39,7 @@ jobs:
           destination: tweego/storyformats
           
       - name: build
-        run: tweego/tweego -o index.html src
+        run: chmod +x tweego/tweego && tweego/tweego -o index.html src
         
       - name: prepare
         run: mkdir public && mv index.html img public
