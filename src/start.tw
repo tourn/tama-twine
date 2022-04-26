@@ -11,10 +11,15 @@ You are feeling a little lonely
 
 You find this little guy:
 
-<img src="img/idle1.gif">
-
 <<set $name to either("Hans", "Peter", "Franz", "Bob")>>
 <<set $title to either(", the Eater of Worlds", " the mighty", "", " Bugsnacker", " Milkdrinker", " Toastlover", ", the very curious")>>
+<<set $body to {
+    fur: either([["(", ")"], ["{", "}"], ["[", "]"]]),
+    eyes: either([["o", "O"], ["o", "0"], ["õ", "Õ"]]),
+    feet: either([[">", "<"], ['"', '"']])
+}>>
+
+<<renderMany `["idle", "idle2"]`>>
 
 His name is <<=$name>><<=$title>>.
 

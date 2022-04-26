@@ -4,7 +4,7 @@
    <<set _aniname to _args[0]>>
    <<set _colorOverrides to {"%": $gore ? '#f00' : setup.format_rgb($color), ... _args[1]}>>
    <div @id="_container"></div>
-   <<run setup.animations.animate(_container, _aniname, {"h": setup.format_rgb($color), ...(_colorOverrides || {})})>>
+   <<run setup.animations.animate(_container, _aniname, {"h": setup.format_rgb($color), ...(_colorOverrides || {})}, $body)>>
 <</widget>>
 
 <<widget "renderMany">>
@@ -12,5 +12,5 @@
    <<set _aniname to _args[0]>>
    <<set _colorOverrides to {"%": $gore ? '#f00' : setup.format_rgb($color), ... _args[1]}>>
    <div @id="_container"></div>
-   <<run setup.animations.animateMany(_container, _aniname, {"h": setup.format_rgb($color), ...(_colorOverrides || {})})>>
+   <<run setup.animations.animateMany(_container, _aniname, {"h": setup.format_rgb($color), ...(_colorOverrides || {})}, $body)>>
 <</widget>>

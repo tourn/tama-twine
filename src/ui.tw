@@ -1,7 +1,6 @@
 :: StoryCaption
 
 <<if $started>>
-   <<renderbody_statbased>>
    <<=$name>><<=$title>>
    Fur is <span @style="'color: rgb(' + $color.r + ',' + $color.g + ',' + $color.b + ');'">COLOR</span>
    <<stats>>

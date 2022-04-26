@@ -63,8 +63,6 @@ function determineFontSize() {
         || document.documentElement.clientWidth
         || document.body.clientWidth;
     var size = Math.min(800 / displayWidth, width / displayWidth);
-    console.log(size);
-    console.log(width);
 
     return size;
 }
@@ -74,10 +72,8 @@ function createDisplay(elementId, optionOverrides = {}) {
         fg: 'white', bg: '#111',
         ...optionOverrides
     };
-    console.log(opts);
     const display = new ROT.Display(opts);
     const node = document.getElementById(elementId);
-    console.log("getting drawing node", elementId, node)
     while (node.firstChild) {
         node.removeChild(node.firstChild);
     }
@@ -89,11 +85,13 @@ function animateContinuously(...args) {
         if (again) { animateContinuously(animationName); }
     });
 }
-function animateMany(elementId, animationNames){ // TODO need another signature to pass color overrides
-    animate(elementId, either(animationNames))
-    .then(()=>animateMany(elementId, animationNames))
+function animateMany(elementId, animationNames, colors, body){ // TODO need another signature to pass color overrides
+    // console.log("animateMany", animationNames, colors, body)
+    animate(elementId, either(animationNames), colors, body)
+    .then(()=>animateMany(elementId, animationNames, colors, body))
 }
-function animate(elementId, animationName, colors = {}) {
+function animate(elementId, animationName, colors = {}, body) {
+    // console.log("animate", animationName, colors, body)
     const definition = get(animationName);
     const display = createDisplay(elementId, {width: definition.width, height: definition.height});
     const defaultColors = {
@@ -110,19 +108,40 @@ function animate(elementId, animationName, colors = {}) {
     let timeout;
     if (timeout) { clearTimeout(timeout); }
 
-    function getColor(mask, x, y) {
-        if (mask) {
-            const maskValue = mask[x][y]
-            return colors[maskValue] || defaultColors[maskValue] || undefined
+    function getCoordinateInstructions(frame, x, y){
+        const originalGlyph = frame.image[x][y]
+        const maskValue = frame.mask && frame.mask[x][y]
+        const color = colors[maskValue] || defaultColors[maskValue] || undefined
+        return {
+            glyph: replaceBodyParts(originalGlyph, maskValue, body),
+            color
         }
-        return undefined
     }
 
-    function drawImage(image, mask) {
+    function replaceBodyParts(glyph, mask, body){
+        if(mask === 'h'){
+            switch(glyph){
+                case "(": return body.fur[0]
+                case ")": return body.fur[1]
+                case ">": return body.feet[0]
+                case "<": return body.feet[1]
+            }
+        }
+        if(mask === 'H'){
+            switch(glyph){
+                case "o": return body.eyes[0]
+                case "O": return body.eyes[1]
+            }
+        }
+        return glyph;
+    }
+
+    function drawImage(frame) {
         display.clear();
-        for (var i = 0; i < image.length; i++) {
-            for (var j = 0; j < image[i].length; j++) {
-                display.draw(j, i, image[i][j], getColor(mask, i, j));
+        for (var i = 0; i < frame.image.length; i++) {
+            for (var j = 0; j < frame.image[i].length; j++) {
+                const {glyph, color} = getCoordinateInstructions(frame, i, j);
+                display.draw(j, i, glyph, color);
             }
         }
     }
@@ -143,7 +162,7 @@ function animate(elementId, animationName, colors = {}) {
             return;
         };
         const frame = frames[i];
-        drawImage(frame.image, frame.mask);
+        drawImage(frame);
         if (frame.text) {
             drawText(frame.image, frame.text);
         }
