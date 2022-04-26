@@ -5472,8 +5472,6 @@ function determineFontSize() {
         || document.documentElement.clientWidth
         || document.body.clientWidth;
     var size = Math.min(800 / displayWidth, width / displayWidth);
-    console.log(size);
-    console.log(width);
 
     return size;
 }
@@ -5483,10 +5481,8 @@ function createDisplay(elementId, optionOverrides = {}) {
         fg: 'white', bg: '#111',
         ...optionOverrides
     };
-    console.log(opts);
     const display = new ROT.Display(opts);
     const node = document.getElementById(elementId);
-    console.log("getting drawing node", elementId, node)
     while (node.firstChild) {
         node.removeChild(node.firstChild);
     }
@@ -5498,11 +5494,13 @@ function animateContinuously(...args) {
         if (again) { animateContinuously(animationName); }
     });
 }
-function animateMany(elementId, animationNames){ // TODO need another signature to pass color overrides
-    animate(elementId, either(animationNames))
-    .then(()=>animateMany(elementId, animationNames))
+function animateMany(elementId, animationNames, colors, body){ // TODO need another signature to pass color overrides
+    // console.log("animateMany", animationNames, colors, body)
+    animate(elementId, either(animationNames), colors, body)
+    .then(()=>animateMany(elementId, animationNames, colors, body))
 }
-function animate(elementId, animationName, colors = {}) {
+function animate(elementId, animationName, colors = {}, body) {
+    // console.log("animate", animationName, colors, body)
     const definition = get(animationName);
     const display = createDisplay(elementId, {width: definition.width, height: definition.height});
     const defaultColors = {
@@ -5519,19 +5517,40 @@ function animate(elementId, animationName, colors = {}) {
     let timeout;
     if (timeout) { clearTimeout(timeout); }
 
-    function getColor(mask, x, y) {
-        if (mask) {
-            const maskValue = mask[x][y]
-            return colors[maskValue] || defaultColors[maskValue] || undefined
+    function getCoordinateInstructions(frame, x, y){
+        const originalGlyph = frame.image[x][y]
+        const maskValue = frame.mask && frame.mask[x][y]
+        const color = colors[maskValue] || defaultColors[maskValue] || undefined
+        return {
+            glyph: replaceBodyParts(originalGlyph, maskValue, body),
+            color
         }
-        return undefined
     }
 
-    function drawImage(image, mask) {
+    function replaceBodyParts(glyph, mask, body){
+        if(mask === 'h'){
+            switch(glyph){
+                case "(": return body.fur[0]
+                case ")": return body.fur[1]
+                case ">": return body.feet[0]
+                case "<": return body.feet[1]
+            }
+        }
+        if(mask === 'H'){
+            switch(glyph){
+                case "o": return body.eyes[0]
+                case "O": return body.eyes[1]
+            }
+        }
+        return glyph;
+    }
+
+    function drawImage(frame) {
         display.clear();
-        for (var i = 0; i < image.length; i++) {
-            for (var j = 0; j < image[i].length; j++) {
-                display.draw(j, i, image[i][j], getColor(mask, i, j));
+        for (var i = 0; i < frame.image.length; i++) {
+            for (var j = 0; j < frame.image[i].length; j++) {
+                const {glyph, color} = getCoordinateInstructions(frame, i, j);
+                display.draw(j, i, glyph, color);
             }
         }
     }
@@ -5552,7 +5571,7 @@ function animate(elementId, animationName, colors = {}) {
             return;
         };
         const frame = frames[i];
-        drawImage(frame.image, frame.mask);
+        drawImage(frame);
         if (frame.text) {
             drawText(frame.image, frame.text);
         }
@@ -7027,7 +7046,7 @@ setup.animations.register("?",
         },
     ]
 );</script><tw-passagedata pid="1" name="a_adventure" tags="" position="100,100" size="100,100">Hans meets a duck.
-&lt;&lt;smod $happy 20&gt;&gt;
+&lt;&lt;smod happy 20&gt;&gt;
 &lt;&lt;render &quot;duck&quot; `{1:&quot;#fabd2f&quot;}`&gt;&gt;
 &lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="m_feed" tags="" position="225,100" size="100,100">What do you want to feed $name?
 
@@ -7103,7 +7122,7 @@ variables().color = color;
 &lt;&lt;img &quot;feed&quot;&gt;&gt;
 &lt;&lt;smod &quot;hunger&quot; 30&gt;&gt;
 &lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="delayed_continue" tags="" position="600,100" size="100,100">&lt;&lt;timed 2s&gt;&gt;
-[[continue-&gt;main]]
+[[continue-&gt;tick]]
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="a_pet" tags="" position="725,100" size="100,100">You pet $name.
 
 &lt;&lt;render &quot;cuddle&quot;&gt;&gt;
@@ -7126,7 +7145,7 @@ variables().color = color;
    &lt;&lt;set _aniname to _args[0]&gt;&gt;
    &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
    &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
-   &lt;&lt;run setup.animations.animate(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})})&gt;&gt;
+   &lt;&lt;run setup.animations.animate(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})}, $body)&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;renderMany&quot;&gt;&gt;
@@ -7134,7 +7153,7 @@ variables().color = color;
    &lt;&lt;set _aniname to _args[0]&gt;&gt;
    &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
    &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
-   &lt;&lt;run setup.animations.animateMany(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})})&gt;&gt;
+   &lt;&lt;run setup.animations.animateMany(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})}, $body)&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="delayed_ohno" tags="" position="100,225" size="100,100">&lt;&lt;timed 5s&gt;&gt;
 [[oh no-&gt;e_rip]]
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="e_suicide" tags="" position="225,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
@@ -7155,7 +7174,12 @@ $name is &lt;&lt;type 200ms&gt;&gt;dead&lt;&lt;/type&gt;&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
 [[well...-&gt;dorestart]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="dorestart" tags="" position="850,225" size="100,100">&lt;&lt;run Engine.restart()&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="main" tags="" position="975,225" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="dorestart" tags="" position="850,225" size="100,100">&lt;&lt;run Engine.restart()&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="tick" tags="nobr" position="975,225" size="100,100">Time passes...
+&lt;&lt;smod happy `$decay`&gt;&gt;
+&lt;&lt;smod hunger `$decay`&gt;&gt;
+&lt;&lt;smod energy `$decay`&gt;&gt;
+
+&lt;&lt;include main&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="main" tags="" position="1100,225" size="100,100">&lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $happy lte 0&gt;&gt;
         &lt;&lt;goto e_suicide&gt;&gt;
     &lt;&lt;/if&gt;&gt;
@@ -7169,32 +7193,31 @@ $name is &lt;&lt;type 200ms&gt;&gt;dead&lt;&lt;/type&gt;&gt;
         &lt;&lt;goto e_overeaten&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;include decay&gt;&gt;
 
 &lt;&lt;=$name&gt;&gt; is here.
-
 &lt;&lt;renderbody_statbased&gt;&gt;
-
 [[Feed-&gt;m_feed]]
 [[Pet-&gt;a_pet]]
 [[Tickle-&gt;a_tickle]]
 [[Send to bed-&gt;a_sleep_bed]]
 [[Punch-&gt;a_punch]]
 [[Go on an adventure-&gt;a_adventure]]
-[[Pass time-&gt;main]]</tw-passagedata><tw-passagedata pid="19" name="decay" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $happy to $happy - $decay&gt;&gt;
-&lt;&lt;set $hunger to $hunger - $decay&gt;&gt;
-&lt;&lt;set $energy to $energy - $decay&gt;&gt;
-Time passes...</tw-passagedata><tw-passagedata pid="20" name="Start" tags="" position="1225,225" size="100,100">&lt;&lt;set $started to false&gt;&gt;
+[[Pass time-&gt;tick]]</tw-passagedata><tw-passagedata pid="20" name="Start" tags="" position="1225,225" size="100,100">&lt;&lt;set $started to false&gt;&gt;
 You are feeling a little lonely
 
 [[look for a friend]]</tw-passagedata><tw-passagedata pid="21" name="look for a friend" tags="" position="100,350" size="100,100">&lt;&lt;set $started to true&gt;&gt;
 
 You find this little guy:
 
-&lt;img src=&quot;img/idle1.gif&quot;&gt;
-
 &lt;&lt;set $name to either(&quot;Hans&quot;, &quot;Peter&quot;, &quot;Franz&quot;, &quot;Bob&quot;)&gt;&gt;
 &lt;&lt;set $title to either(&quot;, the Eater of Worlds&quot;, &quot; the mighty&quot;, &quot;&quot;, &quot; Bugsnacker&quot;, &quot; Milkdrinker&quot;, &quot; Toastlover&quot;, &quot;, the very curious&quot;)&gt;&gt;
+&lt;&lt;set $body to {
+    fur: either([[&quot;(&quot;, &quot;)&quot;], [&quot;{&quot;, &quot;}&quot;], [&quot;[&quot;, &quot;]&quot;]]),
+    eyes: either([[&quot;o&quot;, &quot;O&quot;], [&quot;o&quot;, &quot;0&quot;], [&quot;õ&quot;, &quot;Õ&quot;]]),
+    feet: either([[&quot;&gt;&quot;, &quot;&lt;&quot;], [&#39;&quot;&#39;, &#39;&quot;&#39;]])
+}&gt;&gt;
+
+&lt;&lt;renderMany `[&quot;idle&quot;, &quot;idle2&quot;]`&gt;&gt;
 
 His name is &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;.
 
@@ -7202,7 +7225,7 @@ His name is &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;.
 [[tickle him-&gt;a_tickle]]
 [[punch him-&gt;a_punch]]
 [[leave him be-&gt;Start]]</tw-passagedata><tw-passagedata pid="22" name="StoryInit" tags="" position="225,350" size="100,100">&lt;&lt;set $name to &quot;Friend&quot;&gt;&gt;
-&lt;&lt;set $decay to 5&gt;&gt;
+&lt;&lt;set $decay to -5&gt;&gt;
 &lt;&lt;set $happy to 50&gt;&gt;
 &lt;&lt;set $hunger to 50&gt;&gt;
 &lt;&lt;set $energy to 50&gt;&gt;
@@ -7214,18 +7237,11 @@ His name is &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;.
 &lt;&lt;script&gt;&gt;
 setup.format_rgb = ({r,g,b}) =&gt; `rgb(${r}, ${g}, ${b})`
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="StoryCaption" tags="" position="350,350" size="100,100">&lt;&lt;if $started&gt;&gt;
-   &lt;&lt;renderbody_statbased&gt;&gt;
    &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;
    Fur is &lt;span @style=&quot;&#39;color: rgb(&#39; + $color.r + &#39;,&#39; + $color.g + &#39;,&#39; + $color.b + &#39;);&#39;&quot;&gt;COLOR&lt;/span&gt;
    &lt;&lt;stats&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="Widgets" tags="widget" position="475,350" size="100,100">&lt;&lt;widget &quot;img&quot;&gt;&gt; &lt;img @src=&quot;&#39;img/&#39;+ _args[0] + &#39;.gif&#39;&quot;/&gt; &lt;&lt;/widget&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="Non breaking widgets" tags="widget nobr" position="475,350" size="100,100">&lt;&lt;widget &quot;img&quot;&gt;&gt; &lt;img @src=&quot;&#39;img/&#39;+ _args[0] + &#39;.gif&#39;&quot;/&gt; &lt;&lt;/widget&gt;&gt;
 
-&lt;&lt;widget &quot;stats&quot;&gt;&gt;
-Happy: &lt;&lt;= $happy&gt;&gt;
-Hunger: &lt;&lt;= $hunger&gt;&gt;
-Energy: &lt;&lt;= $energy&gt;&gt;
-&lt;&lt;/widget&gt;&gt;
-    
 &lt;&lt;widget &quot;smod&quot;&gt;&gt;
 &lt;&lt;run variables()[_args[0]] = Math.max(0, Math.min(100, variables()[_args[0]] + _args[1]))&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
@@ -7249,6 +7265,10 @@ Energy: &lt;&lt;= $energy&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;c&quot;&gt;&gt;
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="Normal Widgets" tags="widget" position="600,350" size="100,100">&lt;&lt;widget &quot;stats&quot;&gt;&gt;
+Happy: &lt;&lt;= $happy&gt;&gt;
+Hunger: &lt;&lt;= $hunger&gt;&gt;
+Energy: &lt;&lt;= $energy&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
