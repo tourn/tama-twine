@@ -89,6 +89,10 @@ function animateContinuously(...args) {
         if (again) { animateContinuously(animationName); }
     });
 }
+function animateMany(elementId, animationNames){ // TODO need another signature to pass color overrides
+    animate(elementId, either(animationNames))
+    .then(()=>animateMany(elementId, animationNames))
+}
 function animate(elementId, animationName, colors = {}) {
     const definition = get(animationName);
     const display = createDisplay(elementId, {width: definition.width, height: definition.height});
@@ -158,5 +162,8 @@ setup.animations = {
     register,
     animate(...args) {
         setTimeout(()=>animate(...args), 0)
+    },
+    animateMany(...args) {
+        setTimeout(()=>animateMany(...args), 0)
     }
 }

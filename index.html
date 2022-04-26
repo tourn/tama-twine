@@ -5498,6 +5498,10 @@ function animateContinuously(...args) {
         if (again) { animateContinuously(animationName); }
     });
 }
+function animateMany(elementId, animationNames){ // TODO need another signature to pass color overrides
+    animate(elementId, either(animationNames))
+    .then(()=>animateMany(elementId, animationNames))
+}
 function animate(elementId, animationName, colors = {}) {
     const definition = get(animationName);
     const display = createDisplay(elementId, {width: definition.width, height: definition.height});
@@ -5567,6 +5571,9 @@ setup.animations = {
     register,
     animate(...args) {
         setTimeout(()=>animate(...args), 0)
+    },
+    animateMany(...args) {
+        setTimeout(()=>animateMany(...args), 0)
     }
 }
 /* twine-user-script #3: "cuddle.js" */
@@ -6029,7 +6036,39 @@ setup.animations.register("idle",
     },
 ]
 );
-/* twine-user-script #8: "overeatenexplode.js" */
+/* twine-user-script #8: "idle2.js" */
+duration = 100;
+setup.animations.register("idle2",
+[
+	{
+        duration: duration * 50,
+        image: [
+			"(⑊_/)",
+			"(o_O)",
+			"(> <)"
+        ],
+        mask: [
+			"hhhhh",
+			"hHHHh",
+			"hhhhh"
+        ]
+    },
+    {
+        duration: duration,
+        image: [
+			"(⑊_/)",
+			"(-_-)",
+			"(> <)"
+        ],
+        mask: [
+			"hhhhh",
+			"hHHHh",
+			"hhhhh"
+        ]
+    },
+]
+);
+/* twine-user-script #9: "overeatenexplode.js" */
 duration = 100;
 setup.animations.register("overeatenexplode",
     [
@@ -6695,7 +6734,7 @@ setup.animations.register("overeatenexplode",
         },
     ]
 );
-/* twine-user-script #9: "sick.js" */
+/* twine-user-script #10: "sick.js" */
 duration = 100;
 setup.animations.register("sick",
     [
@@ -6909,7 +6948,7 @@ setup.animations.register("sick",
         },
     ]
 );
-/* twine-user-script #10: "tickle.js" */
+/* twine-user-script #11: "tickle.js" */
 duration = 300;
 setup.animations.register("tickle",
     [
@@ -6946,7 +6985,7 @@ setup.animations.register("tickle",
         },
     ]
 );
-/* twine-user-script #11: "unknown.js" */
+/* twine-user-script #12: "unknown.js" */
 duration = 250;
 setup.animations.register("?", 
     [
@@ -7088,6 +7127,14 @@ variables().color = color;
    &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
    &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
    &lt;&lt;run setup.animations.animate(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})})&gt;&gt;
+&lt;&lt;/widget&gt;&gt;
+
+&lt;&lt;widget &quot;renderMany&quot;&gt;&gt;
+   &lt;&lt;set _container to &quot;ani-container-&quot;+random(9999999)&gt;&gt;
+   &lt;&lt;set _aniname to _args[0]&gt;&gt;
+   &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
+   &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
+   &lt;&lt;run setup.animations.animateMany(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})})&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="delayed_ohno" tags="" position="100,225" size="100,100">&lt;&lt;timed 5s&gt;&gt;
 [[oh no-&gt;e_rip]]
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="e_suicide" tags="" position="225,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
@@ -7196,7 +7243,7 @@ Energy: &lt;&lt;= $energy&gt;&gt;
    &lt;&lt;elseif $happy gte 70&gt;&gt;
       &lt;&lt;render &quot;happy&quot;&gt;&gt;
    &lt;&lt;else&gt;&gt;
-      &lt;&lt;render &quot;idle&quot;&gt;&gt;
+      &lt;&lt;renderMany `[&quot;idle&quot;, &quot;idle2&quot;]`&gt;&gt;
    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;

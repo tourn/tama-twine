@@ -24,7 +24,7 @@ Energy: <<= $energy>>
    <<elseif $happy gte 70>>
       <<render "happy">>
    <<else>>
-      <<render "idle">>
+      <<renderMany `["idle", "idle2"]`>>
    <</if>>
 <</nobr>>
 <</widget>>
