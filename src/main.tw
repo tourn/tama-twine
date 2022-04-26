@@ -1,3 +1,11 @@
+:: tick[nobr]
+Time passes...
+<<smod happy `$decay`>>
+<<smod hunger `$decay`>>
+<<smod energy `$decay`>>
+
+<<include main>>
+
 :: main
 <<nobr>>
     <<if $happy lte 0>>
@@ -13,22 +21,13 @@
         <<goto e_overeaten>>
     <</if>>
 <</nobr>>
-<<include decay>>
 
 <<=$name>> is here.
-
 <<renderbody_statbased>>
-
 [[Feed->m_feed]]
 [[Pet->a_pet]]
 [[Tickle->a_tickle]]
 [[Send to bed->a_sleep_bed]]
 [[Punch->a_punch]]
 [[Go on an adventure->a_adventure]]
-[[Pass time->main]]
-
-:: decay[nobr]
-<<set $happy to $happy - $decay>>
-<<set $hunger to $hunger - $decay>>
-<<set $energy to $energy - $decay>>
-Time passes...
+[[Pass time->tick]]

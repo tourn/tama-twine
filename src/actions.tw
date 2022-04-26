@@ -1,7 +1,7 @@
 :: delayed_continue
 
 <<timed 2s>>
-[[continue->main]]
+[[continue->tick]]
 <</timed>>
 
 :: a_pet

@@ -11,7 +11,7 @@ My Little Hans
 
 :: StoryInit
 <<set $name to "Friend">>
-<<set $decay to 5>>
+<<set $decay to -5>>
 <<set $happy to 50>>
 <<set $hunger to 50>>
 <<set $energy to 50>>

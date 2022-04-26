@@ -1,6 +1,6 @@
 :: a_adventure
 
 Hans meets a duck.
-<<smod $happy 20>>
+<<smod happy 20>>
 <<render "duck" `{1:"#fabd2f"}`>>
 <<include delayed_continue>>
