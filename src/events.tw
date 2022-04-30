@@ -8,7 +8,7 @@
 :: e_suicide
 
 <<=$name>> has had it with you.
-<<img "suicide">>
+<<render "suicide">>
 <<include delayed_ohno>>
 
 
@@ -27,7 +27,7 @@
 :: e_sleep_floor
 
 $name falls asleep on the floor.
-<<img "sleep">>
+<<render "sleep">>
 <<smod 'energy' 50>>
 <<smod 'happy' -5>>
 <<include delayed_continue>>
@@ -38,7 +38,7 @@ $name falls asleep on the floor.
 $name is <<type 200ms>>dead<</type>>
 <</nobr>>
 
-<<img "death2">>
+<<renderMany `["dead1", "dead2"]`>>
 
 <<timed 3s>>
 [[well...->dorestart]]

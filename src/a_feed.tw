@@ -50,7 +50,6 @@ What do you want to feed $name?
     b: 0
 }>>
 <</link>>
-[[Bread->a_feed]]
 <<back "Never mind.">>
 
 
@@ -73,14 +72,5 @@ const color = variables().color;
 variables().color = color;
 <</script>>
 <<render feed `{h: setup.format_rgb(_prev_color), 1: setup.format_rgb($food), 2: setup.format_rgb($color)}`>>
-<<smod "hunger" 30>>
-<<include delayed_continue>>
-
-
-:: a_feed
-
-You feed <<=$name>>.
-
-<<img "feed">>
 <<smod "hunger" 30>>
 <<include delayed_continue>>

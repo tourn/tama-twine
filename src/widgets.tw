@@ -14,13 +14,13 @@
    <<if $hunger gte 70>>
       <<render "sick" `{1: setup.format_rgb($food)}`>>
    <<elseif $happy lte 30>>
-      <<img "sad1">>
+      <<renderMany `["sad1", "sad2"]`>>
    <<elseif $hunger lte 30>>
-      <<img "hungry1">>
+      <<renderMany `["hungry1"]`>>
    <<elseif $energy lte 30>>
-      <<img "sleepy1">>
+      <<renderMany `["sleepy1"]`>>
    <<elseif $happy gte 70>>
-      <<render "happy">>
+      <<renderMany `["happy"]`>>
    <<else>>
       <<renderMany `["idle", "idle2"]`>>
    <</if>>

@@ -26,7 +26,7 @@ You tickle $name.
 
 You punch <<=$name>>.
 
-<<img "beat">>
+<<render beat>>
 <<smod "happy" -20>>
 <<include delayed_continue>>
 
@@ -34,6 +34,6 @@ You punch <<=$name>>.
 
 You put $name to bed.
 
-<<img "sleep">>
+<<render sleep>>
 <<smod "energy" 999>>
 <<include delayed_continue>>
