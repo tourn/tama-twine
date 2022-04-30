@@ -5407,6 +5407,54 @@ ROT.Path.AStar.prototype._distance = function(x, y) {
         throw new Error("Illegal topology");
 }
 /* twine-user-script #2: "1_engine.js" */
+setup.colors = {
+    GRUVBOX_RED_DARK: '#cc241d',
+    GRUVBOX_RED_BRIGHT: '#fb4934',
+    GRUVBOX_GREEN_DARK: '#98971a',
+    GRUVBOX_GREEN_BRIGHT: '#b8bb26',
+    GRUVBOX_YELLOW_DARK: '#d79921',
+    GRUVBOX_YELLOW_BRIGHT: '#fabd2f',
+    GRUVBOX_BLUE_DARK: '#458588',
+    GRUVBOX_BLUE_BRIGHT: '#83a598',
+    GRUVBOX_PURPLE_DARK: '#b16286',
+    GRUVBOX_PURPLE_BRIGHT: '#d3869b',
+    GRUVBOX_AQUA_DARK: '#689d6a',
+    GRUVBOX_AQUA_BRIGHT: '#8ec07c',
+    GRUVBOX_GRAY: '#a89984',
+    GRUVBOX_BG: '#282828',
+    GRUVBOX_FG: '#ebdbb2'
+}
+
+/**
+ * A single animation frame looks like this
+ 
+    {
+        duration: 1 * duration,
+        image: [
+            "    (⑊_/)",
+            " (3 (oO )",
+            "    (> <)"
+        ],
+        mask: [
+            "    hhhhh",
+            " 11 hHHhh",
+            "    hhhhh"
+        ]
+    },
+
+ *  Where "image" depicts the actual characters rendered
+    And "mask" contains additional information for formatting/coloring the image characters on the matching coordinates
+    Some conventions on what mask value to use for what:
+
+    H = face of Hans
+    h = body of Hans
+    N, n = face, body of Hans (special usage)
+    0-9 = things that should be colored at callsite, e.g. the color of the snack Hans is getting
+    % = gore (default to Hanses color to make it less brutal)
+    ! = blood (default to transparent)
+    rgybpaRGYBPAq = colors from colorscheme
+ */
+
 Array.prototype.flatMap = function (lambda) {
     return Array.prototype.concat.apply([], this.map(lambda));
 };
@@ -5423,11 +5471,11 @@ function register(name, data) {
     animations[name] = {
         ...getDimensions(data),
         frames: data
-        .flatMap(flattenAnimation)
-        .map(replaceCharacters)
+            .flatMap(flattenAnimation)
+            .map(replaceCharacters)
     }
 }
-function replaceCharacters(frame){
+function replaceCharacters(frame) {
     // animation definitions can use the weird character ⑊ instead of an escaped \\ which throws the whole alignment off
     return {
         ...frame,
@@ -5444,7 +5492,7 @@ function getDimensions(definition) {
         });
     });
 
-    return { width: x, height: y};
+    return { width: x, height: y };
 }
 function flattenAnimation(frame) {
     if (!frame.loop) {
@@ -5489,35 +5537,48 @@ function createDisplay(elementId, optionOverrides = {}) {
     node.appendChild(display.getContainer());
     return display;
 }
-function animateContinuously(...args) {
-    animate(...args).then(function (again) {
-        if (again) { animateContinuously(animationName); }
-    });
-}
-function animateMany(elementId, animationNames, colors, body){ // TODO need another signature to pass color overrides
+
+/* animations can be either passed as "animationName" or ["animationName", {colors}] */
+function animateMany(elementId, animations, body) {
     // console.log("animateMany", animationNames, colors, body)
-    animate(elementId, either(animationNames), colors, body)
-    .then(()=>animateMany(elementId, animationNames, colors, body))
+    animate(elementId, either(animations), {}, body)
+        .then(() => animateMany(elementId, animations, body))
 }
-function animate(elementId, animationName, colors = {}, body) {
+function animate(elementId, animation, colors = {}, body) {
+    let animationName;
+    if(typeof animation === "object"){
+        [animationName, colors] = animation;
+    } else {
+        animationName = animation;
+    }
     // console.log("animate", animationName, colors, body)
     const definition = get(animationName);
-    const display = createDisplay(elementId, {width: definition.width, height: definition.height});
+    const display = createDisplay(elementId, { width: definition.width, height: definition.height });
+    const defaultH = setup.format_rgb(variables().color);
     const defaultColors = {
-        r: "#cc241d",
-        R: "#fb4934",
-        g: "#98971a",
-        G: "#b8bb26",
-        b: "#458588",
-        B: "#83a598",
-        y: "#d79921",
-        Y: "#fabd2f",
-        H: colors.h
+        r: setup.colors.GRUVBOX_RED_DARK,
+        R: setup.colors.GRUVBOX_RED_BRIGHT,
+        g: setup.colors.GRUVBOX_GREEN_DARK,
+        G: setup.colors.GRUVBOX_GREEN_BRIGHT,
+        b: setup.colors.GRUVBOX_BLUE_DARK,
+        B: setup.colors.GRUVBOX_BLUE_BRIGHT,
+        y: setup.colors.GRUVBOX_YELLOW_DARK,
+        Y: setup.colors.GRUVBOX_YELLOW_BRIGHT,
+        p: setup.colors.GRUVBOX_PURPLE_DARK,
+        P: setup.colors.GRUVBOX_PURPLE_BRIGHT,
+        a: setup.colors.GRUVBOX_AQUA_DARK,
+        A: setup.colors.GRUVBOX_AQUA_BRIGHT,
+        q: setup.colors.GRUVBOX_GRAY,
+        h: defaultH,
+        H: colors.h || defaultH,
+        N: colors.n,
+        '%': variables().gore ? setup.GRUVBOX_RED_DARK : (colors.h || defaultH),
+        '!': variables().gore ? setup.GRUVBOX_RED_DARK : 'transparent'
     }
     let timeout;
     if (timeout) { clearTimeout(timeout); }
 
-    function getCoordinateInstructions(frame, x, y){
+    function getCoordinateInstructions(frame, x, y) {
         const originalGlyph = frame.image[x][y]
         const maskValue = frame.mask && frame.mask[x][y]
         const color = colors[maskValue] || defaultColors[maskValue] || undefined
@@ -5527,17 +5588,17 @@ function animate(elementId, animationName, colors = {}, body) {
         }
     }
 
-    function replaceBodyParts(glyph, mask, body){
-        if(mask === 'h'){
-            switch(glyph){
+    function replaceBodyParts(glyph, mask, body) {
+        if (mask === 'h' || mask === "n") {
+            switch (glyph) {
                 case "(": return body.fur[0]
                 case ")": return body.fur[1]
                 case ">": return body.feet[0]
                 case "<": return body.feet[1]
             }
         }
-        if(mask === 'H'){
-            switch(glyph){
+        if (mask === 'H' || mask === "N") {
+            switch (glyph) {
                 case "o": return body.eyes[0]
                 case "O": return body.eyes[1]
             }
@@ -5549,7 +5610,7 @@ function animate(elementId, animationName, colors = {}, body) {
         display.clear();
         for (var i = 0; i < frame.image.length; i++) {
             for (var j = 0; j < frame.image[i].length; j++) {
-                const {glyph, color} = getCoordinateInstructions(frame, i, j);
+                const { glyph, color } = getCoordinateInstructions(frame, i, j);
                 display.draw(j, i, glyph, color);
             }
         }
@@ -5589,10 +5650,10 @@ function animate(elementId, animationName, colors = {}, body) {
 setup.animations = {
     register,
     animate(...args) {
-        setTimeout(()=>animate(...args), 0)
+        setTimeout(() => animate(...args), 0)
     },
     animateMany(...args) {
-        setTimeout(()=>animateMany(...args), 0)
+        setTimeout(() => animateMany(...args), 0)
     }
 }
 /* twine-user-script #3: "beat.js" */
@@ -5802,7 +5863,7 @@ setup.animations.register("dead1",
                 "       1   1",
                 "       12221",
                 "       1   1",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg"
             ]
         },
     ]
@@ -5810,91 +5871,56 @@ setup.animations.register("dead1",
 /* twine-user-script #6: "dead2.js" */
 duration = 100;
 setup.animations.register("dead2",
-[
-	{
-        duration: duration,
-        image: [
-			"        ___",
-			"       /   ⑊",
-			"       |RIP|",
-			"       |   |",
-			"^^^^^^^=====^^^^^^^^"
-        ],
-        mask: [
-			"        111",
-			"       1   1",
-			"       12221",
-			"       1   1",
-			"^^^^^^^=====^^^^^^^^"
-        ]
-    },
-	{
-        duration: duration,
-        image: [
-			"/ / / / /_/ / / / / ",
-			"       /   ⑊",
-			"       |RIP|",
-			"       |   |",
-			"^^^^^^^=====^^^^^^^^"
-        ],
-        mask: [
-			"b b b b b1b b b b b ",
-			"       1   1",
-			"       12221",
-			"       1   1",
-			"^^^^^^^=====^^^^^^^^"
-        ]
-    },
-	{
-        duration: duration,
-        image: [
-			" / / / /_/_/ / / / /",
-			" / / / /   ⑊ / / / /",
-			"       |RIP|",
-			"       |   |",
-			"^^^^^^^=====^^^^^^^^"
-        ],
-        mask: [
-			" b b b b1b1b b b b b",
-			" b b b 1   1 b b b b",
-			"       12221",
-			"       1   1",
-			"^^^^^^^=====^^^^^^^^"
-        ]
-    },
-	{
-        duration: duration,
-        image: [
-			"/ / / / /_/ / / / / ",
-			"/ / / //   ⑊/ / / / ",
-			"/ / /  |RIP|/ / / /",
-			"       |   |",
-			"^^^^^^^=====^^^^^^^^"
-        ],
-        mask: [
-			"b b b b b1b b b b b ",
-			"b b b b1   1b b b b ",
-			"b b b  12221b b b b",
-			"       1   1",
-			"^^^^^^^=====^^^^^^^^"
-        ]
-    },
-	{ loop: 20, frames: [
+	[
+		{
+			duration: duration,
+			image: [
+				"        ___",
+				"       /   ⑊",
+				"       |RIP|",
+				"       |   |",
+				"^^^^^^^=====^^^^^^^^"
+			],
+			mask: [
+				"        111",
+				"       1   1",
+				"       12221",
+				"       1   1",
+				"gggggggggggggggggggg",
+			]
+		},
+		{
+			duration: duration,
+			image: [
+				"/ / / / /_/ / / / / ",
+				"       /   ⑊",
+				"       |RIP|",
+				"       |   |",
+				"^^^^^^^=====^^^^^^^^"
+			],
+			mask: [
+				"b b b b b1b b b b b ",
+				"       1   1",
+				"       12221",
+				"       1   1",
+				"gggggggggggggggggggg",
+			]
+		},
 		{
 			duration: duration,
 			image: [
 				" / / / /_/_/ / / / /",
 				" / / / /   ⑊ / / / /",
-				" / / / |RIP| / / / /",
-				" / /   |   | / / / /",
+				"       |RIP|",
+				"       |   |",
 				"^^^^^^^=====^^^^^^^^"
 			],
 			mask: [
 				" b b b b1b1b b b b b",
 				" b b b 1   1 b b b b",
-				" b b b 12221 b b b b",
-				" b b   1   1 b b b b",
-				"^^^^^^^=====^^^^^^^^"
+				"       12221",
+				"       1   1",
+				"gggggggggggggggggggg",
 			]
 		},
 		{
@@ -5902,72 +5928,108 @@ setup.animations.register("dead2",
 			image: [
 				"/ / / / /_/ / / / / ",
 				"/ / / //   ⑊/ / / / ",
-				"/ / /  |RIP|/ / / / ",
-				"/ / /  |   |/ / / / ",
+				"/ / /  |RIP|/ / / /",
+				"       |   |",
 				"^^^^^^^=====^^^^^^^^"
 			],
 			mask: [
 				"b b b b b1b b b b b ",
 				"b b b b1   1b b b b ",
-				"b b b  12221b b b b ",
-				"b b b  1   1b b b b ",
-				"^^^^^^^=====^^^^^^^^"
+				"b b b  12221b b b b",
+				"       1   1",
+				"gggggggggggggggggggg",
 			]
 		},
-		]
-	},
-	{
-		duration: duration,
-		image: [
-			"        ___",
-			" / / / /   ⑊ / / / /",
-			" / / / |RIP| / / / /",
-			" / /   |   | / / / /",
-			"^^^^^^^=====^^^^^^^^"
-		],
-		mask: [
-			"        111",
-			" b b b 1   1 b b b b",
-			" b b b 12221 b b b b",
-			" b b   1   1 b b b b",
-			"^^^^^^^=====^^^^^^^^"
-		]
-	},
-	{
-		duration: duration,
-		image: [
-			"        ___",
-			"       /   ⑊",
-			"/ / /  |RIP|/ / / /",
-			"/ /    |   |/ / / /",
-			"^^^^^^^=====^^^^^^^^"
-		],
-		mask: [
-			"        111",
-			"       1   1",
-			"b b b  12221b b b b",
-			"b b    1   1b b b b",
-			"^^^^^^^=====^^^^^^^^"
-		]
-	},
-	{
-		duration: duration,
-		image: [
-			"        ___",
-			"       /   ⑊",
-			"       |RIP|",
-			" / /   |   | / / / /",
-			"^^^^^^^=====^^^^^^^^"
-		],
-		mask: [
-			"        111",
-			"       1   1",
-			"       12221",
-			" b b   1   1 b b b b",
-			"^^^^^^^=====^^^^^^^^"
-		]
-	},
-]
+		{
+			loop: 20, frames: [
+				{
+					duration: duration,
+					image: [
+						" / / / /_/_/ / / / /",
+						" / / / /   ⑊ / / / /",
+						" / / / |RIP| / / / /",
+						" / /   |   | / / / /",
+						"^^^^^^^=====^^^^^^^^"
+					],
+					mask: [
+						" b b b b1b1b b b b b",
+						" b b b 1   1 b b b b",
+						" b b b 12221 b b b b",
+						" b b   1   1 b b b b",
+						"gggggggggggggggggggg",
+					]
+				},
+				{
+					duration: duration,
+					image: [
+						"/ / / / /_/ / / / / ",
+						"/ / / //   ⑊/ / / / ",
+						"/ / /  |RIP|/ / / / ",
+						"/ / /  |   |/ / / / ",
+						"^^^^^^^=====^^^^^^^^"
+					],
+					mask: [
+						"b b b b b1b b b b b ",
+						"b b b b1   1b b b b ",
+						"b b b  12221b b b b ",
+						"b b b  1   1b b b b ",
+						"gggggggggggggggggggg",
+					]
+				},
+			]
+		},
+		{
+			duration: duration,
+			image: [
+				"        ___",
+				" / / / /   ⑊ / / / /",
+				" / / / |RIP| / / / /",
+				" / /   |   | / / / /",
+				"^^^^^^^=====^^^^^^^^"
+			],
+			mask: [
+				"        111",
+				" b b b 1   1 b b b b",
+				" b b b 12221 b b b b",
+				" b b   1   1 b b b b",
+				"gggggggggggggggggggg",
+			]
+		},
+		{
+			duration: duration,
+			image: [
+				"        ___",
+				"       /   ⑊",
+				"/ / /  |RIP|/ / / /",
+				"/ /    |   |/ / / /",
+				"^^^^^^^=====^^^^^^^^"
+			],
+			mask: [
+				"        111",
+				"       1   1",
+				"b b b  12221b b b b",
+				"b b    1   1b b b b",
+				"gggggggggggggggggggg",
+			]
+		},
+		{
+			duration: duration,
+			image: [
+				"        ___",
+				"       /   ⑊",
+				"       |RIP|",
+				" / /   |   | / / / /",
+				"^^^^^^^=====^^^^^^^^"
+			],
+			mask: [
+				"        111",
+				"       1   1",
+				"       12221",
+				" b b   1   1 b b b b",
+				"gggggggggggggggggggg",
+			]
+		},
+	]
 );
 /* twine-user-script #7: "duck.js" */
 duration = 200;
@@ -6406,9 +6468,9 @@ setup.animations.register("feed", [
                     "(>  <)"
                 ],
                 mask: [
-                    "222222",
-                    "222222",
-                    "222222"
+                    "nnnnnn",
+                    "nNNNNn",
+                    "nnnnnn"
                 ]
             }
         ]
@@ -6421,9 +6483,9 @@ setup.animations.register("feed", [
             "(>  <)"
         ],
         mask: [
-            "222222",
-            "222222",
-            "222222"
+            "nnnnnn",
+            "nNNNNn",
+            "nnnnnn"
         ]
     },
 ])
@@ -7646,7 +7708,187 @@ setup.animations.register("sleepy1",
         },
     ]
 );
-/* twine-user-script #19: "suicide.js" */
+/* twine-user-script #19: "starved.js" */
+duration = 100;
+setup.animations.register("starved",
+    [
+        {
+            duration: duration * 15,
+            image: [
+                "  (⑊/)",
+                "  (Oo)",
+                "  (><)"
+            ],
+            mask: [
+                "  hhhh",
+                "  hHHh",
+                "  hhhh"
+            ]
+        },
+        {
+            duration: duration * 2,
+            image: [
+                "   ⑊/",
+                "  (Oo)",
+                " /(><)⑊"
+            ],
+            mask: [
+                "   hh",
+                "  hHHh",
+                " hhhhhh"
+            ]
+        },
+        {
+            duration: duration * 2,
+            image: [
+                "   ⑊/",
+                "   Oo",
+                "_/(><)⑊_"
+            ],
+            mask: [
+                "   hh",
+                "   HH",
+                "hhhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 2,
+            image: [
+                "   ⑊/",
+                "   Oo",
+                "__/><⑊__"
+            ],
+            mask: [
+                "   hh",
+                "   HH",
+                "hhhhhhhh"
+            ]
+        },
+        {
+            loop: 2,
+            frames: [
+                {
+                    duration: duration * 5,
+                    image: [
+                        "   ⑊/",
+                        "   Oo",
+                        "___><___"
+                    ],
+                    mask: [
+                        "   hh",
+                        "   HH",
+                        "hhhhhhhh"
+                    ]
+                },
+                {
+                    duration: duration,
+                    image: [
+                        "   ⑊/",
+                        "   --",
+                        "___><___"
+                    ],
+                    mask: [
+                        "   hh",
+                        "   HH",
+                        "hhhhhhhh"
+                    ]
+                },
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "   ⑊/",
+                "   Oo",
+                "___><___"
+            ],
+            mask: [
+                "   hh",
+                "   HH",
+                "hhhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 5,
+            image: [
+                "   ⑊/",
+                "   Xx",
+                "___><___"
+            ],
+            mask: [
+                "   hh",
+                "   HH",
+                "hhhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "    ⑊/",
+                "   Xx",
+                "___><___"
+            ],
+            mask: [
+                "    hh",
+                "   HH",
+                "hhhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 2,
+            image: [
+                "     ⑊/",
+                "    Xx",
+                "___><___"
+            ],
+            mask: [
+                "     hh",
+                "    HH",
+                "hhhhhhhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "      /",
+                "    Xx-",
+                "___><___"
+            ],
+            mask: [
+                "      h",
+                "    HHh",
+                "hhhhhhhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "       _",
+                "     Xx-",
+                "___><___"
+            ],
+            mask: [
+                "       h",
+                "     HHh",
+                "hhhhhhhh"
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "",
+                "       _",
+                "___><Xx-"
+            ],
+            mask: [
+                "",
+                "       h",
+                "hhhhhHHh"
+            ]
+        },
+    ]
+);
+/* twine-user-script #20: "suicide.js" */
 duration = 50;
 setup.animations.register("suicide",
     [
@@ -8145,7 +8387,7 @@ setup.animations.register("suicide",
                 "                    ",
                 "                    ",
                 "                    ",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8162,7 +8404,7 @@ setup.animations.register("suicide",
                 "                    ",
                 "                    ",
                 "                    ",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8179,7 +8421,7 @@ setup.animations.register("suicide",
                 "       hhhhh",
                 "                    ",
                 "                    ",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8196,7 +8438,7 @@ setup.animations.register("suicide",
                 "       hHHHh",
                 "       hhhhh",
                 "                    ",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8213,7 +8455,7 @@ setup.animations.register("suicide",
                 "       hhhhh",
                 "       hHHHh",
                 "       hhhhh",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8230,7 +8472,7 @@ setup.animations.register("suicide",
                 "",
                 "       hhhhh",
                 "     hhhHHHhhh",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8247,7 +8489,7 @@ setup.animations.register("suicide",
                 "",
                 "         h",
                 "    hhhhhhhhhhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8264,7 +8506,7 @@ setup.animations.register("suicide",
                 "",
                 "   hh         hh",
                 "     h hhhhh h",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8281,7 +8523,7 @@ setup.animations.register("suicide",
                 "",
                 "  hh   hhhhh   hh",
                 "    h  hHHHh    ´",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8298,7 +8540,7 @@ setup.animations.register("suicide",
                 "",
                 " hh    hhhhh     hh",
                 "       hHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8315,7 +8557,7 @@ setup.animations.register("suicide",
                 "hh     hhhhh     hh",
                 "       hHHHh",
                 "        h h",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8332,7 +8574,7 @@ setup.animations.register("suicide",
                 "h      hhhhh      hh",
                 "       hHHHh",
                 "        ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8349,7 +8591,7 @@ setup.animations.register("suicide",
                 "       hhhhh       h",
                 "       hHHHh",
                 "        ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8366,7 +8608,7 @@ setup.animations.register("suicide",
                 "",
                 "       hhhhh",
                 "       hHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8383,7 +8625,7 @@ setup.animations.register("suicide",
                 "",
                 "       hhhhh",
                 "       hHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8400,7 +8642,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       hhhhh",
                 "       hHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8417,7 +8659,7 @@ setup.animations.register("suicide",
                 "       12221",
                 "      h1   1h",
                 "      hHHHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8434,7 +8676,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 "    hhH1   1Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8451,7 +8693,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 "   hhH 1   1 Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8468,7 +8710,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 "  hhH  1   1  Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8485,7 +8727,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 " hhH   1   1   Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -8502,12 +8744,12 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 "hhH    1   1    Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
     ]
 );
-/* twine-user-script #20: "tickle.js" */
+/* twine-user-script #21: "tickle.js" */
 duration = 300;
 setup.animations.register("tickle",
     [
@@ -8544,7 +8786,7 @@ setup.animations.register("tickle",
         },
     ]
 );
-/* twine-user-script #21: "unknown.js" */
+/* twine-user-script #22: "unknown.js" */
 duration = 250;
 setup.animations.register("?", 
     [
@@ -8672,7 +8914,7 @@ const color = variables().color;
 })
 variables().color = color;
 &lt;&lt;/script&gt;&gt;
-&lt;&lt;render feed `{h: setup.format_rgb(_prev_color), 1: setup.format_rgb($food), 2: setup.format_rgb($color)}`&gt;&gt;
+&lt;&lt;render feed `{h: setup.format_rgb(_prev_color), 1: setup.format_rgb($food), n: setup.format_rgb($color)}`&gt;&gt;
 &lt;&lt;smod &quot;hunger&quot; 30&gt;&gt;
 &lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="delayed_continue" tags="" position="725,100" size="100,100">&lt;&lt;timed 2s&gt;&gt;
 [[continue-&gt;tick]]
@@ -8696,23 +8938,22 @@ variables().color = color;
 &lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="AnimationWidgets" tags="widget nobr" position="100,225" size="100,100">&lt;&lt;widget &quot;render&quot;&gt;&gt;
    &lt;&lt;set _container to &quot;ani-container-&quot;+random(9999999)&gt;&gt;
    &lt;&lt;set _aniname to _args[0]&gt;&gt;
-   &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
+   &lt;&lt;set _colorOverrides to _args[1]&gt;&gt;
    &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
-   &lt;&lt;run setup.animations.animate(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})}, $body)&gt;&gt;
+   &lt;&lt;run setup.animations.animate(_container, _aniname, _colorOverrides, $body)&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;renderMany&quot;&gt;&gt;
    &lt;&lt;set _container to &quot;ani-container-&quot;+random(9999999)&gt;&gt;
-   &lt;&lt;set _aniname to _args[0]&gt;&gt;
-   &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
+   &lt;&lt;set _animations to _args[0]&gt;&gt;
    &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
-   &lt;&lt;run setup.animations.animateMany(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})}, $body)&gt;&gt;
+   &lt;&lt;run setup.animations.animateMany(_container, _animations, $body)&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="delayed_ohno" tags="" position="225,225" size="100,100">&lt;&lt;timed 5s&gt;&gt;
 [[oh no-&gt;e_rip]]
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="e_suicide" tags="" position="350,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
-&lt;&lt;render &quot;suicide&quot;&gt;&gt;
+&lt;&lt;render &quot;suicide&quot; `{1: setup.colors.GRUVBOX_GRAY}`&gt;&gt;
 &lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="e_starve" tags="" position="475,225" size="100,100">&lt;&lt;=$name&gt;&gt; starves to death.
-&lt;&lt;img &quot;starved1&quot;&gt;&gt;
+&lt;&lt;render &quot;starved&quot;&gt;&gt;
 &lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="e_overeaten" tags="" position="600,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had a little bit too many tasty snacks.
 &lt;&lt;render &quot;overeatenexplode&quot;&gt;&gt;
 &lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="e_sleep_floor" tags="" position="725,225" size="100,100">$name falls asleep on the floor.
@@ -8780,10 +9021,12 @@ His name is &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;.
 [[tickle him-&gt;a_tickle]]
 [[punch him-&gt;a_punch]]
 [[leave him be-&gt;Start]]</tw-passagedata><tw-passagedata pid="23" name="StoryInit" tags="" position="350,350" size="100,100">&lt;&lt;set $name to &quot;Friend&quot;&gt;&gt;
-&lt;&lt;set $decay to -5&gt;&gt;
 &lt;&lt;set $happy to 50&gt;&gt;
 &lt;&lt;set $hunger to 50&gt;&gt;
 &lt;&lt;set $energy to 50&gt;&gt;
+&lt;&lt;set $decay to -5&gt;&gt;
+&lt;&lt;set $stat_min to 0&gt;&gt;
+&lt;&lt;set $stat_max to 100&gt;&gt;
 &lt;&lt;set $color to {
     r: 255,
     g: 255,
@@ -8798,11 +9041,11 @@ setup.format_rgb = ({r,g,b}) =&gt; `rgb(${r}, ${g}, ${b})`
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="Non breaking widgets" tags="widget nobr" position="600,350" size="100,100">&lt;&lt;widget &quot;img&quot;&gt;&gt; &lt;img @src=&quot;&#39;img/&#39;+ _args[0] + &#39;.gif&#39;&quot;/&gt; &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;smod&quot;&gt;&gt;
-&lt;&lt;run variables()[_args[0]] = Math.max(0, Math.min(100, variables()[_args[0]] + _args[1]))&gt;&gt;
+&lt;&lt;run variables()[_args[0]] = Math.clamp(variables()[_args[0]] + _args[1], $stat_min, $stat_max)&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;smod_safe&quot;&gt;&gt;
-&lt;&lt;run variables()[_args[0]] = Math.max(6, Math.min(100, variables()[_args[0]] + _args[1]))&gt;&gt;
+&lt;&lt;run variables()[_args[0]] = Math.clamp(variables()[_args[0]] + _args[1], $stat_min-$decay, $stat_max+$decay)&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;renderbody_statbased&quot;&gt;&gt;
