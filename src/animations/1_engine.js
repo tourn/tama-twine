@@ -128,20 +128,24 @@ function createDisplay(elementId, optionOverrides = {}) {
     node.appendChild(display.getContainer());
     return display;
 }
-function animateContinuously(...args) {
-    animate(...args).then(function (again) {
-        if (again) { animateContinuously(animationName); }
-    });
-}
-function animateMany(elementId, animationNames, colors, body) { // TODO need another signature to pass color overrides
+
+/* animations can be either passed as "animationName" or ["animationName", {colors}] */
+function animateMany(elementId, animations, body) {
     // console.log("animateMany", animationNames, colors, body)
-    animate(elementId, either(animationNames), colors, body)
-        .then(() => animateMany(elementId, animationNames, colors, body))
+    animate(elementId, either(animations), {}, body)
+        .then(() => animateMany(elementId, animations, body))
 }
-function animate(elementId, animationName, colors = {}, body) {
+function animate(elementId, animation, colors = {}, body) {
+    let animationName;
+    if(typeof animation === "object"){
+        [animationName, colors] = animation;
+    } else {
+        animationName = animation;
+    }
     // console.log("animate", animationName, colors, body)
     const definition = get(animationName);
     const display = createDisplay(elementId, { width: definition.width, height: definition.height });
+    const defaultH = setup.format_rgb(variables().color);
     const defaultColors = {
         r: setup.colors.GRUVBOX_RED_DARK,
         R: setup.colors.GRUVBOX_RED_BRIGHT,
@@ -156,8 +160,11 @@ function animate(elementId, animationName, colors = {}, body) {
         a: setup.colors.GRUVBOX_AQUA_DARK,
         A: setup.colors.GRUVBOX_AQUA_BRIGHT,
         q: setup.colors.GRUVBOX_GRAY,
-        H: colors.h,
-        N: colors.n
+        h: defaultH,
+        H: colors.h || defaultH,
+        N: colors.n,
+        '%': variables().gore ? setup.GRUVBOX_RED_DARK : (colors.h || defaultH),
+        '!': variables().gore ? setup.GRUVBOX_RED_DARK : 'transparent'
     }
     let timeout;
     if (timeout) { clearTimeout(timeout); }

@@ -11,10 +11,12 @@ My Little Hans
 
 :: StoryInit
 <<set $name to "Friend">>
-<<set $decay to -5>>
 <<set $happy to 50>>
 <<set $hunger to 50>>
 <<set $energy to 50>>
+<<set $decay to -5>>
+<<set $stat_min to 0>>
+<<set $stat_max to 100>>
 <<set $color to {
     r: 255,
     g: 255,

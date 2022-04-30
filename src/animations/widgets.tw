@@ -2,15 +2,14 @@
 <<widget "render">>
    <<set _container to "ani-container-"+random(9999999)>>
    <<set _aniname to _args[0]>>
-   <<set _colorOverrides to {"%": $gore ? '#f00' : setup.format_rgb($color), ... _args[1]}>>
+   <<set _colorOverrides to _args[1]>>
    <div @id="_container"></div>
-   <<run setup.animations.animate(_container, _aniname, {"h": setup.format_rgb($color), ...(_colorOverrides || {})}, $body)>>
+   <<run setup.animations.animate(_container, _aniname, _colorOverrides, $body)>>
 <</widget>>
 
 <<widget "renderMany">>
    <<set _container to "ani-container-"+random(9999999)>>
-   <<set _aniname to _args[0]>>
-   <<set _colorOverrides to {"%": $gore ? '#f00' : setup.format_rgb($color), ... _args[1]}>>
+   <<set _animations to _args[0]>>
    <div @id="_container"></div>
-   <<run setup.animations.animateMany(_container, _aniname, {"h": setup.format_rgb($color), ...(_colorOverrides || {})}, $body)>>
+   <<run setup.animations.animateMany(_container, _animations, $body)>>
 <</widget>>
