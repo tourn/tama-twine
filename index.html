@@ -98,7 +98,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3// --><tw-storydata name="My Little Hans" startnode="22" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3" zoom="1" format="SugarCube" format-version="2.36.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "0_rot.js" */
+	<!-- UUID://CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3// --><tw-storydata name="My Little Hans" startnode="21" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="CBCB89E8-A0C6-4FF4-9A2A-4A2DBE85EDA3" zoom="1" format="SugarCube" format-version="2.36.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "0_rot.js" */
 /*
 	This is rot.js, the ROguelike Toolkit in JavaScript.
 	Version 0.7~dev, generated on Tue Aug 30 12:08:59 CEST 2016.
@@ -5595,7 +5595,159 @@ setup.animations = {
         setTimeout(()=>animateMany(...args), 0)
     }
 }
-/* twine-user-script #3: "cuddle.js" */
+/* twine-user-script #3: "beat.js" */
+duration=150;
+setup.animations.register("beat", [
+    {
+        duration: 1 * duration,
+        image: [
+            "    (⑊_/)",
+            "(3  (oO )",
+            "    (> <)"
+        ],
+        mask: [
+            "    hhhhh",
+            "11  hHHhh",
+            "    hhhhh"
+        ]
+    },
+    {
+        duration: 1 * duration,
+        image: [
+            "    (⑊_/)",
+            " (3 (oO )",
+            "    (> <)"
+        ],
+        mask: [
+            "    hhhhh",
+            " 11 hHHhh",
+            "    hhhhh"
+        ]
+    },
+    {
+        loop: 1,
+        frames: [
+            {
+                duration: 1 * duration,
+                image: [
+                    "    (⑊_/)",
+                    "  (3(oO )",
+                    "    (> <)"
+                ],
+                mask: [
+                    "    hhhhh",
+                    "  11hHHhh",
+                    "    hhhhh"
+                ]
+            },
+            {
+                duration: 1 * duration,
+                image: [
+                    "    (⑊_/)",
+                    "   (3(oO )",
+                    "    (> <)"
+                ],
+                mask: [
+                    "    hhhhh",
+                    "   11hHHhh",
+                    "    hhhhh"
+                ]
+            },
+        ]
+    },
+    {
+        duration: 1 * duration,
+        image: [
+            "    (⑊_/)",
+            "   (3(--,)",
+            "    (> <)"
+        ],
+        mask: [
+            "    hhhhh",
+            "   11hHH2h",
+            "    hhhhh"
+        ]
+    },
+    {
+        duration: 1 * duration,
+        image: [
+            "    (⑊_/)",
+            "  (3(-- ,",
+            "    (> <)"
+        ],
+        mask: [
+            "    hhhhh",
+            "  11hHHh2",
+            "    hhhhh"
+        ]
+    },
+    {
+        duration: 1 * duration,
+        image: [
+            "    (⑊_/)",
+            "    (oO ),",
+            "    (> <)"
+        ],
+        mask: [
+            "    hhhhh",
+            "    hHHhh2",
+            "    hhhhh"
+        ]
+    },
+    {
+        duration: 1 * duration,
+        image: [
+            "    (⑊_/)",
+            "    (oO ) ,",
+            "    (> <)"
+        ],
+        mask: [
+            "    hhhhh",
+            "    hHHhh 2",
+            "    hhhhh"
+        ]
+    },
+    {
+        duration: 1 * duration,
+        image: [
+            "    (⑊_/)",
+            "    (oO )  ",
+            "    (> <)  ,"
+        ],
+        mask: [
+            "    hhhhh",
+            "    hHHhh  ",
+            "    hhhhh  2"
+        ]
+    },
+    {
+        duration: 5 * duration,
+        image: [
+            "    (⑊_/)",
+            "    (oO )  ",
+            "    (> <)   ,"
+        ],
+        mask: [
+            "    hhhhh",
+            "    hHHhh  ",
+            "    hhhhh   2"
+        ]
+    },
+    {
+        duration: 1 * duration,
+        image: [
+            "            ",
+            "      (⑊_/)",
+            "    (>(T-T) ,"
+        ],
+        mask: [
+            "            ",
+            "      hhhhh",
+            "    hhhHHHh 2"
+        ]
+    },
+])
+/* twine-user-script #4: "cuddle.js" */
 duration = 300;
 setup.animations.register("cuddle",
     [
@@ -5632,7 +5784,192 @@ setup.animations.register("cuddle",
         },
     ]
 );
-/* twine-user-script #4: "duck.js" */
+/* twine-user-script #5: "dead1.js" */
+duration = 5000;
+setup.animations.register("dead1",
+    [
+        {
+            duration: duration,
+            image: [
+                "        ___",
+                "       /   ⑊",
+                "       |RIP|",
+                "       |   |",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "        111",
+                "       1   1",
+                "       12221",
+                "       1   1",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+    ]
+);
+/* twine-user-script #6: "dead2.js" */
+duration = 100;
+setup.animations.register("dead2",
+[
+	{
+        duration: duration,
+        image: [
+			"        ___",
+			"       /   ⑊",
+			"       |RIP|",
+			"       |   |",
+			"^^^^^^^=====^^^^^^^^"
+        ],
+        mask: [
+			"        111",
+			"       1   1",
+			"       12221",
+			"       1   1",
+			"^^^^^^^=====^^^^^^^^"
+        ]
+    },
+	{
+        duration: duration,
+        image: [
+			"/ / / / /_/ / / / / ",
+			"       /   ⑊",
+			"       |RIP|",
+			"       |   |",
+			"^^^^^^^=====^^^^^^^^"
+        ],
+        mask: [
+			"b b b b b1b b b b b ",
+			"       1   1",
+			"       12221",
+			"       1   1",
+			"^^^^^^^=====^^^^^^^^"
+        ]
+    },
+	{
+        duration: duration,
+        image: [
+			" / / / /_/_/ / / / /",
+			" / / / /   ⑊ / / / /",
+			"       |RIP|",
+			"       |   |",
+			"^^^^^^^=====^^^^^^^^"
+        ],
+        mask: [
+			" b b b b1b1b b b b b",
+			" b b b 1   1 b b b b",
+			"       12221",
+			"       1   1",
+			"^^^^^^^=====^^^^^^^^"
+        ]
+    },
+	{
+        duration: duration,
+        image: [
+			"/ / / / /_/ / / / / ",
+			"/ / / //   ⑊/ / / / ",
+			"/ / /  |RIP|/ / / /",
+			"       |   |",
+			"^^^^^^^=====^^^^^^^^"
+        ],
+        mask: [
+			"b b b b b1b b b b b ",
+			"b b b b1   1b b b b ",
+			"b b b  12221b b b b",
+			"       1   1",
+			"^^^^^^^=====^^^^^^^^"
+        ]
+    },
+	{ loop: 20, frames: [
+		{
+			duration: duration,
+			image: [
+				" / / / /_/_/ / / / /",
+				" / / / /   ⑊ / / / /",
+				" / / / |RIP| / / / /",
+				" / /   |   | / / / /",
+				"^^^^^^^=====^^^^^^^^"
+			],
+			mask: [
+				" b b b b1b1b b b b b",
+				" b b b 1   1 b b b b",
+				" b b b 12221 b b b b",
+				" b b   1   1 b b b b",
+				"^^^^^^^=====^^^^^^^^"
+			]
+		},
+		{
+			duration: duration,
+			image: [
+				"/ / / / /_/ / / / / ",
+				"/ / / //   ⑊/ / / / ",
+				"/ / /  |RIP|/ / / / ",
+				"/ / /  |   |/ / / / ",
+				"^^^^^^^=====^^^^^^^^"
+			],
+			mask: [
+				"b b b b b1b b b b b ",
+				"b b b b1   1b b b b ",
+				"b b b  12221b b b b ",
+				"b b b  1   1b b b b ",
+				"^^^^^^^=====^^^^^^^^"
+			]
+		},
+		]
+	},
+	{
+		duration: duration,
+		image: [
+			"        ___",
+			" / / / /   ⑊ / / / /",
+			" / / / |RIP| / / / /",
+			" / /   |   | / / / /",
+			"^^^^^^^=====^^^^^^^^"
+		],
+		mask: [
+			"        111",
+			" b b b 1   1 b b b b",
+			" b b b 12221 b b b b",
+			" b b   1   1 b b b b",
+			"^^^^^^^=====^^^^^^^^"
+		]
+	},
+	{
+		duration: duration,
+		image: [
+			"        ___",
+			"       /   ⑊",
+			"/ / /  |RIP|/ / / /",
+			"/ /    |   |/ / / /",
+			"^^^^^^^=====^^^^^^^^"
+		],
+		mask: [
+			"        111",
+			"       1   1",
+			"b b b  12221b b b b",
+			"b b    1   1b b b b",
+			"^^^^^^^=====^^^^^^^^"
+		]
+	},
+	{
+		duration: duration,
+		image: [
+			"        ___",
+			"       /   ⑊",
+			"       |RIP|",
+			" / /   |   | / / / /",
+			"^^^^^^^=====^^^^^^^^"
+		],
+		mask: [
+			"        111",
+			"       1   1",
+			"       12221",
+			" b b   1   1 b b b b",
+			"^^^^^^^=====^^^^^^^^"
+		]
+	},
+]
+);
+/* twine-user-script #7: "duck.js" */
 duration = 200;
 const duck_start = [
 	{
@@ -5915,7 +6252,7 @@ setup.animations.register("duck_bad", [
 		]
 	},
 ]);
-/* twine-user-script #5: "feed.js" */
+/* twine-user-script #8: "feed.js" */
 duration = 300;
 setup.animations.register("feed", [
     {
@@ -6090,7 +6427,7 @@ setup.animations.register("feed", [
         ]
     },
 ])
-/* twine-user-script #6: "happy.js" */
+/* twine-user-script #9: "happy.js" */
 duration = 1000;
 setup.animations.register("happy", 
     [
@@ -6122,7 +6459,65 @@ setup.animations.register("happy",
         },
     ]
 );
-/* twine-user-script #7: "idle.js" */
+/* twine-user-script #10: "hungry1.js" */
+duration = 100;
+setup.animations.register("hungry1",
+    [
+        {
+            duration: duration * 30,
+            image: [
+                "(⑊/)",
+                "(Oo)",
+                "(><)"
+            ],
+            mask: [
+                "hhhh",
+                "hHHh",
+                "hhhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "(⑊/)",
+                "(--)",
+                "(><)"
+            ],
+            mask: [
+                "hhhh",
+                "hHHh",
+                "hhhh"
+            ]
+        },
+        {
+            duration: duration * 10,
+            image: [
+                "(⑊/)",
+                "(Oo)",
+                "(><)"
+            ],
+            mask: [
+                "hhhh",
+                "hHHh",
+                "hhhh"
+            ]
+        },
+        {
+            duration: duration * 30,
+            image: [
+                "(⑊/) NOM?",
+                "(Oo)/",
+                "(><)"
+            ],
+            mask: [
+                "hhhh",
+                "hHHh",
+                "hhhh"
+            ]
+        },
+    ]
+);
+/* twine-user-script #11: "idle.js" */
 duration = 100;
 setup.animations.register("idle",
 [
@@ -6154,7 +6549,7 @@ setup.animations.register("idle",
     },
 ]
 );
-/* twine-user-script #8: "idle2.js" */
+/* twine-user-script #12: "idle2.js" */
 duration = 100;
 setup.animations.register("idle2",
 [
@@ -6186,7 +6581,7 @@ setup.animations.register("idle2",
     },
 ]
 );
-/* twine-user-script #9: "overeatenexplode.js" */
+/* twine-user-script #13: "overeatenexplode.js" */
 duration = 100;
 setup.animations.register("overeatenexplode",
     [
@@ -6852,7 +7247,123 @@ setup.animations.register("overeatenexplode",
         },
     ]
 );
-/* twine-user-script #10: "sick.js" */
+/* twine-user-script #14: "sad1.js" */
+duration = 100;
+setup.animations.register("sad1",
+    [
+        {
+            duration: duration * 50,
+            image: [
+                "(⑊_/)",
+                "(._.)",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh",
+                "hHHHh",
+                "hhhhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "(⑊_/)",
+                "(-_-)",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh",
+                "hHHHh",
+                "hhhhh"
+            ]
+        },
+    ]
+);
+/* twine-user-script #15: "sad2.js" */
+duration = 100;
+setup.animations.register("sad2",
+    [
+        {
+            duration: duration * 30,
+            image: [
+                "(⑊_/)",
+                "(._.)",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh",
+                "hHHHh",
+                "hhhhh"
+            ]
+        },
+        {
+            duration: duration * 20,
+            image: [
+                "(⑊_/)",
+                "( ._)",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh",
+                "hHHHh",
+                "hhhhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "(⑊_/)",
+                "( -_)",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh",
+                "hHHHh",
+                "hhhhh"
+            ]
+        },
+        {
+            duration: duration * 20,
+            image: [
+                "(⑊_/)",
+                "( ._)",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh",
+                "hHHHh",
+                "hhhhh"
+            ]
+        },
+        {
+            duration: duration * 20,
+            image: [
+                "(⑊_/)",
+                "(._.)",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh",
+                "hHHHh",
+                "hhhhh"
+            ]
+        },
+        {
+            duration: duration * 30,
+            image: [
+                "(⑊_/)",
+                "(T_T)",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh",
+                "hHHHh",
+                "hhhhh"
+            ]
+        },
+    ]
+);
+/* twine-user-script #16: "sick.js" */
 duration = 100;
 setup.animations.register("sick",
     [
@@ -7066,7 +7577,937 @@ setup.animations.register("sick",
         },
     ]
 );
-/* twine-user-script #11: "tickle.js" */
+/* twine-user-script #17: "sleep.js" */
+duration = 300;
+setup.animations.register("sleep",
+    [
+        {
+            loop: 8,
+            frames: [
+                {
+                    duration: duration,
+                    image: [
+                        "(⑊_/) Z",
+                        "(-_-)z",
+                        "(> <)"
+                    ],
+                    mask: [
+                        "hhhhh 2",
+                        "hHHHh1",
+                        "hhhhh"
+                    ]
+                },
+                {
+                    duration: duration,
+                    image: [
+                        "(⑊_/) z",
+                        "(-_-)Z",
+                        "(> <)"
+                    ],
+                    mask: [
+                        "hhhhh 1",
+                        "hHHHh2",
+                        "hhhhh"
+                    ]
+                },
+            ]
+        },
+    ]
+);
+/* twine-user-script #18: "sleepy1.js" */
+duration = 1000;
+setup.animations.register("sleepy1",
+    [
+        {
+            duration: duration * 3,
+            image: [
+                "(⑊_/)",
+                "(/_⑊)",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh",
+                "hHHHh",
+                "hhhhh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "(⑊_/) zzz?",
+                "(/_⑊)/",
+                "(> <)"
+            ],
+            mask: [
+                "hhhhh     ",
+                "hHHHh ",
+                "hhhhh"
+            ]
+        },
+    ]
+);
+/* twine-user-script #19: "suicide.js" */
+duration = 50;
+setup.animations.register("suicide",
+    [
+        {
+            duration: duration * 3, 
+            image: [
+                "       (⑊_/)",
+                "       (._.)",
+                "       (< <)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "       hhhhh",
+                "       hHHHh",
+                "       hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "      (⑊_/)",
+                "      (._.)",
+                "      (< <)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "      hhhhh",
+                "      hHHHh",
+                "      hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "     (⑊_/)",
+                "     (._.)",
+                "     (< <)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "     hhhhh",
+                "     hHHHh",
+                "     hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "     (⑊_/)",
+                "     (._.)",
+                "     (> >)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "     hhhhh",
+                "     hHHHh",
+                "     hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3,
+            image: [
+                "      (⑊_/)",
+                "      (._.)",
+                "      (> >)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "      hhhhh",
+                "      hHHHh",
+                "      hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "       (⑊_/)",
+                "       (._.)",
+                "       (> >)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "       hhhhh",
+                "       hHHHh",
+                "       hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "        (⑊_/)",
+                "        (._.)",
+                "        (> >)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "        hhhhh",
+                "        hHHHh",
+                "        hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "         (⑊_/)",
+                "         (._.)",
+                "         (> >)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "         hhhhh",
+                "         hHHHh",
+                "         hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "         (⑊_/)",
+                "         (._.)",
+                "         (< <)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "         hhhhh",
+                "         hHHHh",
+                "         hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "        (⑊_/)",
+                "        (._.)",
+                "        (< <)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "        hhhhh",
+                "        hHHHh",
+                "        hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "       (⑊_/)",
+                "       (._.)",
+                "       (< <)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "       hhhhh",
+                "       hHHHh",
+                "       hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "       (⑊_/)",
+                "       (._.)",
+                "       (> <)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "       hhhhh",
+                "       hHHHh",
+                "       hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 20, 
+            image: [
+                "       (⑊_/)",
+                "       (._.)",
+                "       (> <)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "       hhhhh",
+                "       hHHHh",
+                "       hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration * 2, 
+            image: [
+                "       (._.)",
+                "       (> <)",
+                "",
+                "====================",
+                ""
+            ],
+            mask: [
+                "       hHHHh",
+                "       hhhhh",
+                "",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "       (⑊_/)",
+                "       (._.)",
+                "       (> <)",
+                "====================",
+                ""
+            ],
+            mask: [
+                "       hhhhh",
+                "       hHHHh",
+                "       hhhhh",
+                "====================",
+                ""
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "       (⑊_/)",
+                "       (._.)",
+                "=======(> <)========",
+                ""
+            ],
+            mask: [
+                "",
+                "       hhhhh",
+                "       hHHHh",
+                "=======hhhhh========",
+                ""
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "",
+                "       (⑊_/)",
+                "=======(._.)========",
+                "       (> <)"
+            ],
+            mask: [
+                "",
+                "",
+                "       hhhhh",
+                "=======hHHHh========",
+                "       hhhhh"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "",
+                "",
+                "=======(⑊_/)========",
+                "       (._.)"
+            ],
+            mask: [
+                "",
+                "",
+                "",
+                "=======hhhhh========",
+                "       hHHHh"
+            ]
+        },
+        {
+            duration: duration,
+            image: [
+                "",
+                "",
+                "",
+                "====================",
+                "       (⑊_/)"
+            ],
+            mask: [
+                "",
+                "",
+                "",
+                "====================",
+                "       hhhhh"
+            ]
+        },
+        {
+            duration: duration * 5, 
+            image: [
+                "",
+                "",
+                "",
+                "====================",
+                ""
+            ],
+            mask: [
+                "",
+                "",
+                "",
+                "====================",
+                ""
+            ]
+        },
+        {
+            loop: 5,
+            frames: [
+                {
+                    duration: duration * 3 ,
+                    image: [
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    mask: [
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                },
+                {
+                    duration: duration ,
+                    image: [
+                        "       (> <)",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    mask: [
+                        "       hhhhh",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                },
+                {
+                    duration: duration ,
+                    image: [
+                        "       (O_o)",
+                        "       (> <)",
+                        "",
+                        "",
+                        ""
+                    ],
+                    mask: [
+                        "       hHHHh",
+                        "       hhhhh",
+                        "",
+                        "",
+                        ""
+                    ]
+                },
+                {
+                    duration: duration,
+                    image: [
+                        "       (⑊_/)",
+                        "       (O_o)",
+                        "       (> <)",
+                        "",
+                        ""
+                    ],
+                    mask: [
+                        "       hhhhh",
+                        "       hHHHh",
+                        "       hhhhh",
+                        "",
+                        ""
+                    ]
+                },
+                {
+                    duration: duration,
+                    image: [
+                        "",
+                        "       (⑊_/)",
+                        "       (O_o)",
+                        "       (> <)",
+                        ""
+                    ],
+                    mask: [
+                        "",
+                        "       hhhhh",
+                        "       hHHHh",
+                        "       hhhhh",
+                        ""
+                    ]
+                },
+                {
+                    duration: duration,
+                    image: [
+                        "",
+                        "",
+                        "       (⑊_/)",
+                        "       (O_o)",
+                        "       (> <)"
+                    ],
+                    mask: [
+                        "",
+                        "",
+                        "       hhhhh",
+                        "       hHHHh",
+                        "       hhhhh"
+                    ]
+                },
+                {
+                    duration: duration,
+                    image: [
+                        "",
+                        "",
+                        "",
+                        "       (⑊_/)",
+                        "       (O_o)"
+                    ],
+                    mask: [
+                        "",
+                        "",
+                        "",
+                        "       hhhhh",
+                        "       hHHHh"
+                    ]
+                },
+                {
+                    duration: duration,
+                    image: [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "       (⑊_/)"
+                    ],
+                    mask: [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "       hhhhh"
+                    ]
+                },
+            ]
+        },
+        {
+            duration: duration * 3, 
+            image: [
+                "                    ",
+                "                    ",
+                "                    ",
+                "                    ",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ],
+            mask: [
+                "                    ",
+                "                    ",
+                "                    ",
+                "                    ",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "       (> <)",
+                "                    ",
+                "                    ",
+                "                    ",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ],
+            mask: [
+                "       hhhhh",
+                "                    ",
+                "                    ",
+                "                    ",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "       (>_<)",
+                "       (> <)",
+                "                    ",
+                "                    ",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ],
+            mask: [
+                "       hHHHh",
+                "       hhhhh",
+                "                    ",
+                "                    ",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "       (⑊_/)",
+                "       (>_<)",
+                "       (> <)",
+                "                    ",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ],
+            mask: [
+                "       hhhhh",
+                "       hHHHh",
+                "       hhhhh",
+                "                    ",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "       (⑊_/)",
+                "       (>_<)",
+                "       (> <)",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "       hhhhh",
+                "       hHHHh",
+                "       hhhhh",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "",
+                "       (⑊_/)",
+                "     (>(x_x)<)",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "",
+                "       hhhhh",
+                "     hhhHHHhhh",
+                "^^^^^^^^^^^^^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "",
+                "         o",
+                "    (> (⑊_/) <)",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "",
+                "         h",
+                "    hhhhhhhhhhh",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "",
+                "   (<         <)",
+                "     ` (⑊_/) ´",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "",
+                "   hh         hh",
+                "     h hhhhh h",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "",
+                "  (<   (⑊_/)   <)",
+                "    `  (x_x)    ´",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "",
+                "  hh   hhhhh   hh",
+                "    h  hHHHh    ´",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "",
+                " (<    (⑊_/)     <)",
+                "       (x_x) ",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "",
+                " hh    hhhhh     hh",
+                "       hHHHh ",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "(<     (⑊_/)     <)",
+                "       (X_x)",
+                "        ´ `",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "hh     hhhhh     hh",
+                "       hHHHh",
+                "        h h",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "<      (⑊_/)      <)",
+                "       (X_x)",
+                "        ",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "h      hhhhh      hh",
+                "       hHHHh",
+                "        ",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "",
+                "       (⑊_/)       <",
+                "       (X_x)",
+                "        ",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "       hhhhh       h",
+                "       hHHHh",
+                "        ",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration * 20, 
+            image: [
+                "",
+                "",
+                "       (⑊_/)",
+                "       (x_x) ",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "",
+                "",
+                "       hhhhh",
+                "       hHHHh ",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "       |   |",
+                "",
+                "       (⑊_/)",
+                "       (x_x) ",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "       1   1",
+                "",
+                "       hhhhh",
+                "       hHHHh ",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "       |RIP|",
+                "       |   |",
+                "       (⑊_/)",
+                "       (x_x) ",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "       12221",
+                "       1   1",
+                "       hhhhh",
+                "       hHHHh ",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "       /   ⑊",
+                "       |RIP|",
+                "      (|   |)",
+                "      (X___x) ",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "       1   1",
+                "       12221",
+                "      h1   1h",
+                "      hHHHHHh ",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "        ___",
+                "       /   ⑊",
+                "       |RIP|",
+                "    /(X|   |X)⑊",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "        111",
+                "       1   1",
+                "       12221",
+                "    hhH1   1Hhh",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "        ___",
+                "       /   ⑊",
+                "       |RIP|",
+                "   _⑊X |   | X)_",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "        111",
+                "       1   1",
+                "       12221",
+                "   hhH 1   1 Hhh",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration, 
+            image: [
+                "        ___",
+                "       /   ⑊",
+                "       |RIP|",
+                "  __X  |   |  X__",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "        111",
+                "       1   1",
+                "       12221",
+                "  hhH  1   1  Hhh",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration * 2, 
+            image: [
+                "        ___",
+                "       /   ⑊",
+                "       |RIP|",
+                " __x   |   |   x__",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "        111",
+                "       1   1",
+                "       12221",
+                " hhH   1   1   Hhh",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+        {
+            duration: duration * 50, 
+            image: [
+                "        ___",
+                "       /   ⑊",
+                "       |RIP|",
+                "__x    |   |    x__",
+                "^^^^^^^=====^^^^^^^^"
+            ],
+            mask: [
+                "        111",
+                "       1   1",
+                "       12221",
+                "hhH    1   1    Hhh",
+                "^^^^^^^=====^^^^^^^^"
+            ]
+        },
+    ]
+);
+/* twine-user-script #20: "tickle.js" */
 duration = 300;
 setup.animations.register("tickle",
     [
@@ -7103,7 +8544,7 @@ setup.animations.register("tickle",
         },
     ]
 );
-/* twine-user-script #12: "unknown.js" */
+/* twine-user-script #21: "unknown.js" */
 duration = 250;
 setup.animations.register("?", 
     [
@@ -7215,7 +8656,6 @@ setup.animations.register("?",
     b: 0
 }&gt;&gt;
 &lt;&lt;/link&gt;&gt;
-[[Bread-&gt;a_feed]]
 &lt;&lt;back &quot;Never mind.&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="a_feed_color" tags="" position="600,100" size="100,100">You feed $name a &lt;&lt;=$food.name&gt;&gt;
 
 &lt;&lt;set _prev_color to clone($color)&gt;&gt;
@@ -7234,30 +8674,26 @@ variables().color = color;
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;render feed `{h: setup.format_rgb(_prev_color), 1: setup.format_rgb($food), 2: setup.format_rgb($color)}`&gt;&gt;
 &lt;&lt;smod &quot;hunger&quot; 30&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="a_feed" tags="" position="725,100" size="100,100">You feed &lt;&lt;=$name&gt;&gt;.
-
-&lt;&lt;img &quot;feed&quot;&gt;&gt;
-&lt;&lt;smod &quot;hunger&quot; 30&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="delayed_continue" tags="" position="850,100" size="100,100">&lt;&lt;timed 2s&gt;&gt;
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="delayed_continue" tags="" position="725,100" size="100,100">&lt;&lt;timed 2s&gt;&gt;
 [[continue-&gt;tick]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="a_pet" tags="" position="975,100" size="100,100">You pet $name.
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="a_pet" tags="" position="850,100" size="100,100">You pet $name.
 
 &lt;&lt;render &quot;cuddle&quot;&gt;&gt;
 &lt;&lt;smod &quot;happy&quot; 20&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="a_tickle" tags="" position="1100,100" size="100,100">You tickle $name.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="a_tickle" tags="" position="975,100" size="100,100">You tickle $name.
 
 &lt;&lt;render &quot;tickle&quot;&gt;&gt;
 &lt;&lt;smod &quot;happy&quot; 10&gt;&gt;
 &lt;&lt;smod &quot;energy&quot; 10&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="a_punch" tags="" position="1225,100" size="100,100">You punch &lt;&lt;=$name&gt;&gt;.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="a_punch" tags="" position="1100,100" size="100,100">You punch &lt;&lt;=$name&gt;&gt;.
 
-&lt;&lt;img &quot;beat&quot;&gt;&gt;
+&lt;&lt;render beat&gt;&gt;
 &lt;&lt;smod &quot;happy&quot; -20&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="a_sleep_bed" tags="" position="100,225" size="100,100">You put $name to bed.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="a_sleep_bed" tags="" position="1225,100" size="100,100">You put $name to bed.
 
-&lt;&lt;img &quot;sleep&quot;&gt;&gt;
+&lt;&lt;render sleep&gt;&gt;
 &lt;&lt;smod &quot;energy&quot; 999&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="AnimationWidgets" tags="widget nobr" position="225,225" size="100,100">&lt;&lt;widget &quot;render&quot;&gt;&gt;
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="AnimationWidgets" tags="widget nobr" position="100,225" size="100,100">&lt;&lt;widget &quot;render&quot;&gt;&gt;
    &lt;&lt;set _container to &quot;ani-container-&quot;+random(9999999)&gt;&gt;
    &lt;&lt;set _aniname to _args[0]&gt;&gt;
    &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
@@ -7271,27 +8707,27 @@ variables().color = color;
    &lt;&lt;set _colorOverrides to {&quot;%&quot;: $gore ? &#39;#f00&#39; : setup.format_rgb($color), ... _args[1]}&gt;&gt;
    &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
    &lt;&lt;run setup.animations.animateMany(_container, _aniname, {&quot;h&quot;: setup.format_rgb($color), ...(_colorOverrides || {})}, $body)&gt;&gt;
-&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="delayed_ohno" tags="" position="350,225" size="100,100">&lt;&lt;timed 5s&gt;&gt;
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="delayed_ohno" tags="" position="225,225" size="100,100">&lt;&lt;timed 5s&gt;&gt;
 [[oh no-&gt;e_rip]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="e_suicide" tags="" position="475,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
-&lt;&lt;img &quot;suicide&quot;&gt;&gt;
-&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="e_starve" tags="" position="600,225" size="100,100">&lt;&lt;=$name&gt;&gt; starves to death.
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="e_suicide" tags="" position="350,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
+&lt;&lt;render &quot;suicide&quot;&gt;&gt;
+&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="e_starve" tags="" position="475,225" size="100,100">&lt;&lt;=$name&gt;&gt; starves to death.
 &lt;&lt;img &quot;starved1&quot;&gt;&gt;
-&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="e_overeaten" tags="" position="725,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had a little bit too many tasty snacks.
+&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="e_overeaten" tags="" position="600,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had a little bit too many tasty snacks.
 &lt;&lt;render &quot;overeatenexplode&quot;&gt;&gt;
-&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="e_sleep_floor" tags="" position="850,225" size="100,100">$name falls asleep on the floor.
-&lt;&lt;img &quot;sleep&quot;&gt;&gt;
+&lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="e_sleep_floor" tags="" position="725,225" size="100,100">$name falls asleep on the floor.
+&lt;&lt;render &quot;sleep&quot;&gt;&gt;
 &lt;&lt;smod &#39;energy&#39; 50&gt;&gt;
 &lt;&lt;smod &#39;happy&#39; -5&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="e_rip" tags="" position="975,225" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="e_rip" tags="" position="850,225" size="100,100">&lt;&lt;nobr&gt;&gt;
 $name is &lt;&lt;type 200ms&gt;&gt;dead&lt;&lt;/type&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;img &quot;death2&quot;&gt;&gt;
+&lt;&lt;renderMany `[&quot;dead1&quot;, &quot;dead2&quot;]`&gt;&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
 [[well...-&gt;dorestart]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="dorestart" tags="" position="1100,225" size="100,100">&lt;&lt;run Engine.restart()&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="tick" tags="nobr" position="1225,225" size="100,100">Time passes...
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="dorestart" tags="" position="975,225" size="100,100">&lt;&lt;run Engine.restart()&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="tick" tags="nobr" position="1100,225" size="100,100">Time passes...
 
 &lt;&lt;if $hunger gte 100&gt;&gt;
     &lt;&lt;goto e_overeaten&gt;&gt;
@@ -7311,7 +8747,7 @@ $name is &lt;&lt;type 200ms&gt;&gt;dead&lt;&lt;/type&gt;&gt;
     &lt;&lt;goto e_sleep_floor&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;include main&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="main" tags="" position="100,350" size="100,100">&lt;&lt;=$name&gt;&gt; is here.
+&lt;&lt;include main&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="main" tags="" position="1225,225" size="100,100">&lt;&lt;=$name&gt;&gt; is here.
 &lt;&lt;renderbody_statbased&gt;&gt;
 [[Feed-&gt;m_feed]]
 [[Pet-&gt;a_pet]]
@@ -7319,10 +8755,10 @@ $name is &lt;&lt;type 200ms&gt;&gt;dead&lt;&lt;/type&gt;&gt;
 [[Send to bed-&gt;a_sleep_bed]]
 [[Punch-&gt;a_punch]]
 [[Go on an adventure-&gt;a_adventure]]
-[[Pass time-&gt;tick]]</tw-passagedata><tw-passagedata pid="22" name="Start" tags="" position="225,350" size="100,100">&lt;&lt;set $started to false&gt;&gt;
+[[Pass time-&gt;tick]]</tw-passagedata><tw-passagedata pid="21" name="Start" tags="" position="100,350" size="100,100">&lt;&lt;set $started to false&gt;&gt;
 You are feeling a little lonely
 
-[[look for a friend]]</tw-passagedata><tw-passagedata pid="23" name="look for a friend" tags="" position="350,350" size="100,100">&lt;&lt;set $started to true&gt;&gt;
+[[look for a friend]]</tw-passagedata><tw-passagedata pid="22" name="look for a friend" tags="" position="225,350" size="100,100">&lt;&lt;set $started to true&gt;&gt;
 
 You find this little guy:
 
@@ -7343,7 +8779,7 @@ His name is &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;.
 [[pet him-&gt;a_pet]]
 [[tickle him-&gt;a_tickle]]
 [[punch him-&gt;a_punch]]
-[[leave him be-&gt;Start]]</tw-passagedata><tw-passagedata pid="24" name="StoryInit" tags="" position="475,350" size="100,100">&lt;&lt;set $name to &quot;Friend&quot;&gt;&gt;
+[[leave him be-&gt;Start]]</tw-passagedata><tw-passagedata pid="23" name="StoryInit" tags="" position="350,350" size="100,100">&lt;&lt;set $name to &quot;Friend&quot;&gt;&gt;
 &lt;&lt;set $decay to -5&gt;&gt;
 &lt;&lt;set $happy to 50&gt;&gt;
 &lt;&lt;set $hunger to 50&gt;&gt;
@@ -7355,11 +8791,11 @@ His name is &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;.
 }&gt;&gt;
 &lt;&lt;script&gt;&gt;
 setup.format_rgb = ({r,g,b}) =&gt; `rgb(${r}, ${g}, ${b})`
-&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="StoryCaption" tags="" position="600,350" size="100,100">&lt;&lt;if $started&gt;&gt;
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="StoryCaption" tags="" position="475,350" size="100,100">&lt;&lt;if $started&gt;&gt;
    &lt;&lt;=$name&gt;&gt;&lt;&lt;=$title&gt;&gt;
    Fur is &lt;span @style=&quot;&#39;color: rgb(&#39; + $color.r + &#39;,&#39; + $color.g + &#39;,&#39; + $color.b + &#39;);&#39;&quot;&gt;COLOR&lt;/span&gt;
    &lt;&lt;stats&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="Non breaking widgets" tags="widget nobr" position="725,350" size="100,100">&lt;&lt;widget &quot;img&quot;&gt;&gt; &lt;img @src=&quot;&#39;img/&#39;+ _args[0] + &#39;.gif&#39;&quot;/&gt; &lt;&lt;/widget&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="Non breaking widgets" tags="widget nobr" position="600,350" size="100,100">&lt;&lt;widget &quot;img&quot;&gt;&gt; &lt;img @src=&quot;&#39;img/&#39;+ _args[0] + &#39;.gif&#39;&quot;/&gt; &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;smod&quot;&gt;&gt;
 &lt;&lt;run variables()[_args[0]] = Math.max(0, Math.min(100, variables()[_args[0]] + _args[1]))&gt;&gt;
@@ -7374,13 +8810,13 @@ setup.format_rgb = ({r,g,b}) =&gt; `rgb(${r}, ${g}, ${b})`
    &lt;&lt;if $hunger gte 70&gt;&gt;
       &lt;&lt;render &quot;sick&quot; `{1: setup.format_rgb($food)}`&gt;&gt;
    &lt;&lt;elseif $happy lte 30&gt;&gt;
-      &lt;&lt;img &quot;sad1&quot;&gt;&gt;
+      &lt;&lt;renderMany `[&quot;sad1&quot;, &quot;sad2&quot;]`&gt;&gt;
    &lt;&lt;elseif $hunger lte 30&gt;&gt;
-      &lt;&lt;img &quot;hungry1&quot;&gt;&gt;
+      &lt;&lt;renderMany `[&quot;hungry1&quot;]`&gt;&gt;
    &lt;&lt;elseif $energy lte 30&gt;&gt;
-      &lt;&lt;img &quot;sleepy1&quot;&gt;&gt;
+      &lt;&lt;renderMany `[&quot;sleepy1&quot;]`&gt;&gt;
    &lt;&lt;elseif $happy gte 70&gt;&gt;
-      &lt;&lt;render &quot;happy&quot;&gt;&gt;
+      &lt;&lt;renderMany `[&quot;happy&quot;]`&gt;&gt;
    &lt;&lt;else&gt;&gt;
       &lt;&lt;renderMany `[&quot;idle&quot;, &quot;idle2&quot;]`&gt;&gt;
    &lt;&lt;/if&gt;&gt;
@@ -7388,7 +8824,7 @@ setup.format_rgb = ({r,g,b}) =&gt; `rgb(${r}, ${g}, ${b})`
 &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;c&quot;&gt;&gt;
-&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="Normal Widgets" tags="widget" position="850,350" size="100,100">&lt;&lt;widget &quot;stats&quot;&gt;&gt;
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="Normal Widgets" tags="widget" position="725,350" size="100,100">&lt;&lt;widget &quot;stats&quot;&gt;&gt;
 Happy: &lt;&lt;= $happy&gt;&gt;
 Hunger: &lt;&lt;= $hunger&gt;&gt;
 Energy: &lt;&lt;= $energy&gt;&gt;
