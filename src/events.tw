@@ -8,14 +8,14 @@
 :: e_suicide
 
 <<=$name>> has had it with you.
-<<render "suicide">>
+<<render "suicide" `{1: setup.colors.GRUVBOX_GRAY}`>>
 <<include delayed_ohno>>
 
 
 :: e_starve
 
 <<=$name>> starves to death.
-<<img "starved1">>
+<<render "starved">>
 <<include delayed_ohno>>
 
 :: e_overeaten

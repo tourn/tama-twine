@@ -1,3 +1,51 @@
+setup.colors = {
+    GRUVBOX_RED_DARK: '#cc241d',
+    GRUVBOX_RED_BRIGHT: '#fb4934',
+    GRUVBOX_GREEN_DARK: '#98971a',
+    GRUVBOX_GREEN_BRIGHT: '#b8bb26',
+    GRUVBOX_YELLOW_DARK: '#d79921',
+    GRUVBOX_YELLOW_BRIGHT: '#fabd2f',
+    GRUVBOX_BLUE_DARK: '#458588',
+    GRUVBOX_BLUE_BRIGHT: '#83a598',
+    GRUVBOX_PURPLE_DARK: '#b16286',
+    GRUVBOX_PURPLE_BRIGHT: '#d3869b',
+    GRUVBOX_AQUA_DARK: '#689d6a',
+    GRUVBOX_AQUA_BRIGHT: '#8ec07c',
+    GRUVBOX_GRAY: '#a89984',
+    GRUVBOX_BG: '#282828',
+    GRUVBOX_FG: '#ebdbb2'
+}
+
+/**
+ * A single animation frame looks like this
+ 
+    {
+        duration: 1 * duration,
+        image: [
+            "    (⑊_/)",
+            " (3 (oO )",
+            "    (> <)"
+        ],
+        mask: [
+            "    hhhhh",
+            " 11 hHHhh",
+            "    hhhhh"
+        ]
+    },
+
+ *  Where "image" depicts the actual characters rendered
+    And "mask" contains additional information for formatting/coloring the image characters on the matching coordinates
+    Some conventions on what mask value to use for what:
+
+    H = face of Hans
+    h = body of Hans
+    N, n = face, body of Hans (special usage)
+    0-9 = things that should be colored at callsite, e.g. the color of the snack Hans is getting
+    % = gore (default to Hanses color to make it less brutal)
+    ! = blood (default to transparent)
+    rgybpaRGYBPAq = colors from colorscheme
+ */
+
 Array.prototype.flatMap = function (lambda) {
     return Array.prototype.concat.apply([], this.map(lambda));
 };
@@ -14,11 +62,11 @@ function register(name, data) {
     animations[name] = {
         ...getDimensions(data),
         frames: data
-        .flatMap(flattenAnimation)
-        .map(replaceCharacters)
+            .flatMap(flattenAnimation)
+            .map(replaceCharacters)
     }
 }
-function replaceCharacters(frame){
+function replaceCharacters(frame) {
     // animation definitions can use the weird character ⑊ instead of an escaped \\ which throws the whole alignment off
     return {
         ...frame,
@@ -35,7 +83,7 @@ function getDimensions(definition) {
         });
     });
 
-    return { width: x, height: y};
+    return { width: x, height: y };
 }
 function flattenAnimation(frame) {
     if (!frame.loop) {
@@ -85,30 +133,36 @@ function animateContinuously(...args) {
         if (again) { animateContinuously(animationName); }
     });
 }
-function animateMany(elementId, animationNames, colors, body){ // TODO need another signature to pass color overrides
+function animateMany(elementId, animationNames, colors, body) { // TODO need another signature to pass color overrides
     // console.log("animateMany", animationNames, colors, body)
     animate(elementId, either(animationNames), colors, body)
-    .then(()=>animateMany(elementId, animationNames, colors, body))
+        .then(() => animateMany(elementId, animationNames, colors, body))
 }
 function animate(elementId, animationName, colors = {}, body) {
     // console.log("animate", animationName, colors, body)
     const definition = get(animationName);
-    const display = createDisplay(elementId, {width: definition.width, height: definition.height});
+    const display = createDisplay(elementId, { width: definition.width, height: definition.height });
     const defaultColors = {
-        r: "#cc241d",
-        R: "#fb4934",
-        g: "#98971a",
-        G: "#b8bb26",
-        b: "#458588",
-        B: "#83a598",
-        y: "#d79921",
-        Y: "#fabd2f",
-        H: colors.h
+        r: setup.colors.GRUVBOX_RED_DARK,
+        R: setup.colors.GRUVBOX_RED_BRIGHT,
+        g: setup.colors.GRUVBOX_GREEN_DARK,
+        G: setup.colors.GRUVBOX_GREEN_BRIGHT,
+        b: setup.colors.GRUVBOX_BLUE_DARK,
+        B: setup.colors.GRUVBOX_BLUE_BRIGHT,
+        y: setup.colors.GRUVBOX_YELLOW_DARK,
+        Y: setup.colors.GRUVBOX_YELLOW_BRIGHT,
+        p: setup.colors.GRUVBOX_PURPLE_DARK,
+        P: setup.colors.GRUVBOX_PURPLE_BRIGHT,
+        a: setup.colors.GRUVBOX_AQUA_DARK,
+        A: setup.colors.GRUVBOX_AQUA_BRIGHT,
+        q: setup.colors.GRUVBOX_GRAY,
+        H: colors.h,
+        N: colors.n
     }
     let timeout;
     if (timeout) { clearTimeout(timeout); }
 
-    function getCoordinateInstructions(frame, x, y){
+    function getCoordinateInstructions(frame, x, y) {
         const originalGlyph = frame.image[x][y]
         const maskValue = frame.mask && frame.mask[x][y]
         const color = colors[maskValue] || defaultColors[maskValue] || undefined
@@ -118,17 +172,17 @@ function animate(elementId, animationName, colors = {}, body) {
         }
     }
 
-    function replaceBodyParts(glyph, mask, body){
-        if(mask === 'h'){
-            switch(glyph){
+    function replaceBodyParts(glyph, mask, body) {
+        if (mask === 'h' || mask === "n") {
+            switch (glyph) {
                 case "(": return body.fur[0]
                 case ")": return body.fur[1]
                 case ">": return body.feet[0]
                 case "<": return body.feet[1]
             }
         }
-        if(mask === 'H'){
-            switch(glyph){
+        if (mask === 'H' || mask === "N") {
+            switch (glyph) {
                 case "o": return body.eyes[0]
                 case "O": return body.eyes[1]
             }
@@ -140,7 +194,7 @@ function animate(elementId, animationName, colors = {}, body) {
         display.clear();
         for (var i = 0; i < frame.image.length; i++) {
             for (var j = 0; j < frame.image[i].length; j++) {
-                const {glyph, color} = getCoordinateInstructions(frame, i, j);
+                const { glyph, color } = getCoordinateInstructions(frame, i, j);
                 display.draw(j, i, glyph, color);
             }
         }
@@ -180,9 +234,9 @@ function animate(elementId, animationName, colors = {}, body) {
 setup.animations = {
     register,
     animate(...args) {
-        setTimeout(()=>animate(...args), 0)
+        setTimeout(() => animate(...args), 0)
     },
     animateMany(...args) {
-        setTimeout(()=>animateMany(...args), 0)
+        setTimeout(() => animateMany(...args), 0)
     }
 }

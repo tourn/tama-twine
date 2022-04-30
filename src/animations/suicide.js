@@ -496,7 +496,7 @@ setup.animations.register("suicide",
                 "                    ",
                 "                    ",
                 "                    ",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -513,7 +513,7 @@ setup.animations.register("suicide",
                 "                    ",
                 "                    ",
                 "                    ",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -530,7 +530,7 @@ setup.animations.register("suicide",
                 "       hhhhh",
                 "                    ",
                 "                    ",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -547,7 +547,7 @@ setup.animations.register("suicide",
                 "       hHHHh",
                 "       hhhhh",
                 "                    ",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -564,7 +564,7 @@ setup.animations.register("suicide",
                 "       hhhhh",
                 "       hHHHh",
                 "       hhhhh",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -581,7 +581,7 @@ setup.animations.register("suicide",
                 "",
                 "       hhhhh",
                 "     hhhHHHhhh",
-                "^^^^^^^^^^^^^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -598,7 +598,7 @@ setup.animations.register("suicide",
                 "",
                 "         h",
                 "    hhhhhhhhhhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -615,7 +615,7 @@ setup.animations.register("suicide",
                 "",
                 "   hh         hh",
                 "     h hhhhh h",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -632,7 +632,7 @@ setup.animations.register("suicide",
                 "",
                 "  hh   hhhhh   hh",
                 "    h  hHHHh    ´",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -649,7 +649,7 @@ setup.animations.register("suicide",
                 "",
                 " hh    hhhhh     hh",
                 "       hHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -666,7 +666,7 @@ setup.animations.register("suicide",
                 "hh     hhhhh     hh",
                 "       hHHHh",
                 "        h h",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -683,7 +683,7 @@ setup.animations.register("suicide",
                 "h      hhhhh      hh",
                 "       hHHHh",
                 "        ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -700,7 +700,7 @@ setup.animations.register("suicide",
                 "       hhhhh       h",
                 "       hHHHh",
                 "        ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -717,7 +717,7 @@ setup.animations.register("suicide",
                 "",
                 "       hhhhh",
                 "       hHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -734,7 +734,7 @@ setup.animations.register("suicide",
                 "",
                 "       hhhhh",
                 "       hHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -751,7 +751,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       hhhhh",
                 "       hHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -768,7 +768,7 @@ setup.animations.register("suicide",
                 "       12221",
                 "      h1   1h",
                 "      hHHHHHh ",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -785,7 +785,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 "    hhH1   1Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -802,7 +802,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 "   hhH 1   1 Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -819,7 +819,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 "  hhH  1   1  Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -836,7 +836,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 " hhH   1   1   Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
         {
@@ -853,7 +853,7 @@ setup.animations.register("suicide",
                 "       1   1",
                 "       12221",
                 "hhH    1   1    Hhh",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg",
             ]
         },
     ]

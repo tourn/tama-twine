@@ -151,9 +151,9 @@ setup.animations.register("feed", [
                     "(>  <)"
                 ],
                 mask: [
-                    "222222",
-                    "222222",
-                    "222222"
+                    "nnnnnn",
+                    "nNNNNn",
+                    "nnnnnn"
                 ]
             }
         ]
@@ -166,9 +166,9 @@ setup.animations.register("feed", [
             "(>  <)"
         ],
         mask: [
-            "222222",
-            "222222",
-            "222222"
+            "nnnnnn",
+            "nNNNNn",
+            "nnnnnn"
         ]
     },
 ])

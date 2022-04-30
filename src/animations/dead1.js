@@ -15,7 +15,7 @@ setup.animations.register("dead1",
                 "       1   1",
                 "       12221",
                 "       1   1",
-                "^^^^^^^=====^^^^^^^^"
+                "gggggggggggggggggggg"
             ]
         },
     ]
