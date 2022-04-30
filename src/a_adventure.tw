@@ -1,6 +1,30 @@
 :: a_adventure
 
+<<goto `either(["adv_duck_good", "adv_duck_bad"])`>>
+
+:: adv_duck_good
 Hans meets a duck.
-<<smod happy 20>>
-<<render "duck" `{1:"#fabd2f"}`>>
-<<include delayed_continue>>
+<<render "duck_good" `{1:"#fabd2f"}`>>
+<<timed 4s>>
+    <<smod_safe happy 20>>
+    <<= either(
+        'They become fast friends',
+        'It tells him about treasure',
+        'It smells of nice flowers',
+    )>>
+    [[continue->tick]]
+<</timed>>
+
+:: adv_duck_bad
+Hans meets a duck.
+<<render "duck_bad" `{1:"#fabd2f"}`>>
+<<timed 4s>>
+    <<smod_safe happy -20>>
+    <<= either(
+        "It's quite rude.",
+        "It's quite scary.",
+        "It tells him mean things.",
+        "It smells like fish.",
+    )>>
+    [[continue->tick]]
+<</timed>>

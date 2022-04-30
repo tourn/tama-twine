@@ -1,27 +1,27 @@
 :: tick[nobr]
 Time passes...
+
+<<if $hunger gte 100>>
+    <<goto e_overeaten>>
+<</if>>
+
 <<smod happy `$decay`>>
 <<smod hunger `$decay`>>
 <<smod energy `$decay`>>
 
+<<if $happy lte 0>>
+    <<goto e_suicide>>
+<</if>>
+<<if $hunger lte 0>>
+    <<goto e_starve>>
+<</if>>
+<<if $energy lte 0>>
+    <<goto e_sleep_floor>>
+<</if>>
+
 <<include main>>
 
 :: main
-<<nobr>>
-    <<if $happy lte 0>>
-        <<goto e_suicide>>
-    <</if>>
-    <<if $hunger lte 0>>
-        <<goto e_starve>>
-    <</if>>
-    <<if $energy lte 0>>
-        <<goto e_sleep_floor>>
-    <</if>>
-    <<if $hunger gte 100>>
-        <<goto e_overeaten>>
-    <</if>>
-<</nobr>>
-
 <<=$name>> is here.
 <<renderbody_statbased>>
 [[Feed->m_feed]]
