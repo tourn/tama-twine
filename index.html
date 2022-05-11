@@ -5650,7 +5650,9 @@ function animate(elementId, animation, colors = {}, body) {
 setup.animations = {
     register,
     animate(...args) {
-        setTimeout(() => animate(...args), 0)
+        return new Promise((resolve, reject) => {
+            setTimeout(() => animate(...args).then(resolve).catch(reject), 0)
+        })
     },
     animateMany(...args) {
         setTimeout(() => animateMany(...args), 0)
@@ -8916,9 +8918,7 @@ variables().color = color;
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;render feed `{h: setup.format_rgb(_prev_color), 1: setup.format_rgb($food), n: setup.format_rgb($color)}`&gt;&gt;
 &lt;&lt;smod &quot;hunger&quot; 30&gt;&gt;
-&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="delayed_continue" tags="" position="725,100" size="100,100">&lt;&lt;timed 2s&gt;&gt;
-[[continue-&gt;tick]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="a_pet" tags="" position="850,100" size="100,100">You pet $name.
+&lt;&lt;include delayed_continue&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="delayed_continue" tags="" position="725,100" size="100,100">&lt;&lt;delayedLink continue tick&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="a_pet" tags="" position="850,100" size="100,100">You pet $name.
 
 &lt;&lt;render &quot;cuddle&quot;&gt;&gt;
 &lt;&lt;smod &quot;happy&quot; 20&gt;&gt;
@@ -8940,7 +8940,13 @@ variables().color = color;
    &lt;&lt;set _aniname to _args[0]&gt;&gt;
    &lt;&lt;set _colorOverrides to _args[1]&gt;&gt;
    &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
-   &lt;&lt;run setup.animations.animate(_container, _aniname, _colorOverrides, $body)&gt;&gt;
+   &lt;&lt;run setup.animations.animate(_container, _aniname, _colorOverrides, $body).then(()=&gt;$(&#39;.js-delayed&#39;).show())&gt;&gt;
+&lt;&lt;/widget&gt;&gt;
+
+&lt;&lt;widget &quot;delayedLink&quot;&gt;&gt;
+   &lt;span style=&quot;display:none&quot; class=&quot;js-delayed&quot;&gt;
+      &lt;&lt;link _args[0] _args[1]&gt;&gt;&lt;&lt;/link&gt;&gt;
+   &lt;/span&gt;
 &lt;&lt;/widget&gt;&gt;
 
 &lt;&lt;widget &quot;renderMany&quot;&gt;&gt;
@@ -8948,9 +8954,7 @@ variables().color = color;
    &lt;&lt;set _animations to _args[0]&gt;&gt;
    &lt;div @id=&quot;_container&quot;&gt;&lt;/div&gt;
    &lt;&lt;run setup.animations.animateMany(_container, _animations, $body)&gt;&gt;
-&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="delayed_ohno" tags="" position="225,225" size="100,100">&lt;&lt;timed 5s&gt;&gt;
-[[oh no-&gt;e_rip]]
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="e_suicide" tags="" position="350,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="delayed_ohno" tags="" position="225,225" size="100,100">&lt;&lt;delayedLink &quot;oh no&quot; e_rip&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="e_suicide" tags="" position="350,225" size="100,100">&lt;&lt;=$name&gt;&gt; has had it with you.
 &lt;&lt;render &quot;suicide&quot; `{1: setup.colors.GRUVBOX_GRAY}`&gt;&gt;
 &lt;&lt;include delayed_ohno&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="e_starve" tags="" position="475,225" size="100,100">&lt;&lt;=$name&gt;&gt; starves to death.
 &lt;&lt;render &quot;starved&quot;&gt;&gt;
