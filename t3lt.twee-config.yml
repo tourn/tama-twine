@@ -14,3 +14,5 @@ sugarcube-2:
       name: render
     renderMany:
       name: renderMany
+    delayedLink:
+      name: delayedLink

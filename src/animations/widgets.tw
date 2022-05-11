@@ -4,7 +4,13 @@
    <<set _aniname to _args[0]>>
    <<set _colorOverrides to _args[1]>>
    <div @id="_container"></div>
-   <<run setup.animations.animate(_container, _aniname, _colorOverrides, $body)>>
+   <<run setup.animations.animate(_container, _aniname, _colorOverrides, $body).then(()=>$('.js-delayed').show())>>
+<</widget>>
+
+<<widget "delayedLink">>
+   <span style="display:none" class="js-delayed">
+      <<link _args[0] _args[1]>><</link>>
+   </span>
 <</widget>>
 
 <<widget "renderMany">>

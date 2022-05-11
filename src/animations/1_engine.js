@@ -241,7 +241,9 @@ function animate(elementId, animation, colors = {}, body) {
 setup.animations = {
     register,
     animate(...args) {
-        setTimeout(() => animate(...args), 0)
+        return new Promise((resolve, reject) => {
+            setTimeout(() => animate(...args).then(resolve).catch(reject), 0)
+        })
     },
     animateMany(...args) {
         setTimeout(() => animateMany(...args), 0)

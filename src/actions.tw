@@ -1,8 +1,6 @@
 :: delayed_continue
 
-<<timed 2s>>
-[[continue->tick]]
-<</timed>>
+<<delayedLink continue tick>>
 
 :: a_pet
 

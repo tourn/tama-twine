@@ -1,8 +1,6 @@
 :: delayed_ohno
 
-<<timed 5s>>
-[[oh no->e_rip]]
-<</timed>>
+<<delayedLink "oh no" e_rip>>
 
 
 :: e_suicide
